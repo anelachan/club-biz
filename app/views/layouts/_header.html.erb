@@ -8,12 +8,14 @@
           <li><%= link_to "Browse Clubs", '#' %></li>
         </ul>
 
-        <ul class="nav pull-right">
-         <li><%= link_to "My Events", '#' %></li>
-         <li><%= link_to "My Clubs", '#' %></li>
-         <li><%= link_to "Messages", '#' %></li>
-         <li><%= link_to "Sign out", '#', method: "delete" %></li>
-        </ul>
+        <% if signed_in? %>
+          <ul class="nav pull-right">
+           <li><%= link_to "My Events", '#' %></li>
+           <li><%= link_to "My Clubs", '#' %></li>
+           <li><%= link_to "Messages", '#' %></li>
+           <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
+          </ul>
+        <% end %>
       </nav>
     </div>
   </div>
