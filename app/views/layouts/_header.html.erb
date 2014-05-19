@@ -5,12 +5,12 @@
       <nav>
         <% if signed_in? and student? %>
           <ul class="nav pull-left">
-            <li><%= link_to "Browse Events", '#' %></li>
+            <li><%= link_to "Browse Events", events_path %></li>
             <li><%= link_to "Browse Clubs", clubs_path %></li>
           </ul>
 
           <ul class="nav pull-right">
-            <li><%= link_to "My Events", '#' %></li>
+            <li><%= link_to "My Events", events_student_path(current_user) %></li>
             <li><%= link_to "My Clubs", clubs_student_path(current_user) %></li>
             <li><%= link_to "Messages", '#' %></li>
             <li><%= link_to "Sign out", signout_path, method: "delete" %></li>

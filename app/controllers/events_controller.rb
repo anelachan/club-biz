@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_action :signed_in_user
   def new
   	@event = Event.new
   end
@@ -19,10 +20,6 @@ class EventsController < ApplicationController
   	@event = Event.find(params[:id])
   end
 
-  def index
-  	@events = Event.all
-  end
-
   def edit
   end
 
@@ -30,6 +27,7 @@ class EventsController < ApplicationController
   end
 
   def index
+    @events = Event.all
   end
 
   def delete

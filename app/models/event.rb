@@ -1,5 +1,9 @@
 class Event < ActiveRecord::Base
-  belongs_to :club
+  belongs_to :club, class_name: "Club"
+  has_many :ticket_reservations, foreign_key: "event_id", dependent: :destroy
+  has_many :students, through: :ticket_reservations, source: :student
+
+
 
   validates :name, presence:true
   validates :date, presence:true # ADD BETTER VALIDATION
@@ -12,4 +16,5 @@ class Event < ActiveRecord::Base
   validates :sales_start, presence:true
   validates :sales_end, presence:true
   validates :conditions, presence:true
+
 end

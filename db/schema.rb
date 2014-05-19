@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519071518) do
+ActiveRecord::Schema.define(version: 20140519103731) do
 
   create_table "admin_data", force: true do |t|
     t.string   "position"
@@ -65,6 +65,17 @@ ActiveRecord::Schema.define(version: 20140519071518) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "ticket_reservations", force: true do |t|
+    t.integer  "student_id"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ticket_reservations", ["event_id"], name: "index_ticket_reservations_on_event_id"
+  add_index "ticket_reservations", ["student_id", "event_id"], name: "index_ticket_reservations_on_student_id_and_event_id", unique: true
+  add_index "ticket_reservations", ["student_id"], name: "index_ticket_reservations_on_student_id"
 
   create_table "users", force: true do |t|
     t.string   "last_name"
