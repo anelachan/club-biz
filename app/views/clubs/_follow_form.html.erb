@@ -1,0 +1,7 @@
+
+  <% if student? and current_user.following?(@club) %>
+    <%= render 'unfollow' %>
+  <% elsif student? %>
+    <%= render 'follow' %>
+  <% end %>
+ 
