@@ -17,6 +17,13 @@ class AdminsController < ApplicationController
     @club = @admin.club
   end
 
+  def events
+    @title = "Upcoming Events"
+    @admin = Admin.find(params[:id])
+    @events = @admin.club.events
+    render 'show_events'
+  end
+
   private
 
     def user_params

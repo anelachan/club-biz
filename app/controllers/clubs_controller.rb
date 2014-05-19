@@ -11,7 +11,7 @@ class ClubsController < ApplicationController
   end
 
   def create
-    @club = Club.new(club_params)
+    @club = Club.new(club_params) # change this to build?
     @club.admin_id = current_user.id
   	if @club.save
   		flash[:success] = "Club created."

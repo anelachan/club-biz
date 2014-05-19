@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519032724) do
+ActiveRecord::Schema.define(version: 20140519071518) do
 
   create_table "admin_data", force: true do |t|
     t.string   "position"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20140519032724) do
     t.string   "website_URL"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "club_id"
   end
 
   add_index "events", ["name"], name: "index_events_on_name"

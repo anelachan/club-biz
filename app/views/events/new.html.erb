@@ -1,0 +1,48 @@
+<% provide(:title, 'Create an event') %>
+<h1>Create event</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@event) do |f| %>
+      <%= render 'shared/error_messages', object: @event %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :date %>
+      <%= f.text_field :date %>
+
+      <%= f.label :start_time %>
+      <%= f.text_field :start_time %>
+
+      <%= f.label :end_time %>
+      <%= f.text_field :end_time %>
+
+      <%= f.label :location %>
+      <%= f.text_field :location %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description %>
+
+      <%= f.label :ticket_price %>
+      <%= f.text_field :ticket_price %>
+
+      <%= f.label :ticket_purchase_instructions %>
+      <%= f.text_area :ticket_purchase_instructions %>
+
+      <%= f.label :sales_start %>
+      <%= f.text_field :sales_start %>
+
+      <%= f.label :sales_end %>
+      <%= f.text_field :sales_end %>
+
+      <%= f.label :conditions %>
+      <%= f.text_field :conditions %>
+
+      <%= f.label :website_URL %>
+      <%= f.text_field :website_URL %>
+
+      <%= f.submit "Create event", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

@@ -1,4 +1,6 @@
 class Event < ActiveRecord::Base
+  belongs_to :club
+
   validates :name, presence:true
   validates :date, presence:true # ADD BETTER VALIDATION
   validates :start_time, presence:true # ADD BETTER VALIDATION

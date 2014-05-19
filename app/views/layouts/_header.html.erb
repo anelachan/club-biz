@@ -20,8 +20,8 @@
 
         <% elsif signed_in? and admin? %>
           <ul class="nav pull-left">
-            <li><%= link_to "Create Event", '#' %></li>
-            <li><%= link_to "Manage Events", '#' %></li>
+            <li><%= link_to "Create Event", new_event_path %></li>
+            <li><%= link_to "Manage Events", events_admin_path(current_user) %></li>
             <li><%= link_to "Form Group", '#' %></li>
             <li><%= link_to "Groups", '#' %></li>
             <li><%= link_to "Create Club Profile", new_club_path %></li>

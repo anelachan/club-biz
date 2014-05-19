@@ -1,0 +1,14 @@
+<% provide(:title, @event.name) %>
+<div class="row">
+      <h1>
+        <%= @event.name %>
+      </h1>
+      <ul>
+      	<li><%= @event.date %></li>
+      	<li><%= @event.start_time %></li>
+      	<li><%= @event.end_time %></li>
+      	<li><%= @event.location %></li>
+      	<li><%= @event.description %></li>
+        <li><%= @event.ticket_price %></li>
+      </div>
+</div>

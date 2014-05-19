@@ -6,9 +6,14 @@ ClubBiz::Application.routes.draw do
       get :clubs
     end
   end
-  resources :admins
+  resources :admins do
+    member do
+      get :events
+    end
+  end
   resources :clubs
   resources :student_clubs, only: [:create, :destroy]
+  resources :events
   root 'static_pages#home'
   match '/signup',  to: 'students#new',         via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
