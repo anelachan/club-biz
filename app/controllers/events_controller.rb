@@ -18,6 +18,8 @@ class EventsController < ApplicationController
 
   def show
   	@event = Event.find(params[:id])
+    @post = @event.posts.build(event_id: @event.id)
+    @posts = @event.posts
   end
 
   def edit
@@ -35,8 +37,6 @@ class EventsController < ApplicationController
 
   def destroy
   end
-
-
 
   private
 

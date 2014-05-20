@@ -7,5 +7,16 @@
       	<%= @club.description %>
         <%= @club.website_url %>
         <%= render 'follow_form'%>
+
+        <% if @events.any? %>
+	      <ul class="clubs">
+	          <% @events.each do |event| %>
+			    <li>
+				  <%= link_to event.name, event %>
+				</li>
+	  		  <% end %>
+	      </ul>
+	    <% end %>
       </div>
+
 </div>

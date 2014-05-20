@@ -16,6 +16,7 @@ ClubBiz::Application.routes.draw do
   resources :student_clubs, only: [:create, :destroy]
   resources :ticket_reservations, only: [:create]
   resources :events
+  resources :posts, only: [:create]
   root 'static_pages#home'
   match '/signup',  to: 'students#new',         via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'

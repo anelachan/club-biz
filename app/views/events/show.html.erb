@@ -10,6 +10,21 @@
       	<li><%= @event.location %></li>
       	<li><%= @event.description %></li>
         <li><%= @event.ticket_price %></li>
+      </ul>
       </div>
       <%= render 'join_form'%>
+      <%= render 'post_form'%>
+
+      <% if @posts.any? %>
+        <ul>
+        <% @posts.each do |post|%>
+          <li>
+            <span class="content">
+              <%= post.user %>
+              <%= post.content %>
+            </span>
+          </li>
+        <% end %>
+      </ul>
+      <% end %>
 </div>
