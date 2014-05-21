@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521062815) do
+ActiveRecord::Schema.define(version: 20140521103619) do
 
   create_table "admin_data", force: true do |t|
     t.string   "position"
@@ -82,6 +82,7 @@ ActiveRecord::Schema.define(version: 20140521062815) do
     t.string   "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "registered_club_id"
   end
 
   create_table "posts", force: true do |t|
@@ -94,12 +95,13 @@ ActiveRecord::Schema.define(version: 20140521062815) do
 
   create_table "registered_clubs", force: true do |t|
     t.string   "name"
-    t.integer  "officer_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "uni_club_id"
   end
 
-  add_index "registered_clubs", ["officer_id"], name: "index_registered_clubs_on_officer_id"
+  add_index "registered_clubs", ["name"], name: "index_registered_clubs_on_name"
+  add_index "registered_clubs", ["uni_club_id"], name: "index_registered_clubs_on_uni_club_id"
 
   create_table "student_clubs", force: true do |t|
     t.integer  "student_id"
@@ -112,11 +114,6 @@ ActiveRecord::Schema.define(version: 20140521062815) do
   add_index "student_clubs", ["student_id", "club_id"], name: "index_student_clubs_on_student_id_and_club_id", unique: true
   add_index "student_clubs", ["student_id"], name: "index_student_clubs_on_student_id"
 
-  create_table "student_users", force: true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "ticket_reservations", force: true do |t|
     t.integer  "student_id"
     t.integer  "event_id"
@@ -127,28 +124,6 @@ ActiveRecord::Schema.define(version: 20140521062815) do
   add_index "ticket_reservations", ["event_id"], name: "index_ticket_reservations_on_event_id"
   add_index "ticket_reservations", ["student_id", "event_id"], name: "index_ticket_reservations_on_student_id_and_event_id", unique: true
   add_index "ticket_reservations", ["student_id"], name: "index_ticket_reservations_on_student_id"
-
-  create_table "user_messages", force: true do |t|
-    t.integer  "message_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_messages", ["message_id", "user_id"], name: "index_user_messages_on_message_id_and_user_id", unique: true
-  add_index "user_messages", ["message_id"], name: "index_user_messages_on_message_id"
-  add_index "user_messages", ["user_id"], name: "index_user_messages_on_user_id"
-
-  create_table "user_posts", force: true do |t|
-    t.integer  "post_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "user_posts", ["post_id"], name: "index_user_posts_on_post_id"
-  add_index "user_posts", ["user_id", "post_id"], name: "index_user_posts_on_user_id_and_post_id", unique: true
-  add_index "user_posts", ["user_id"], name: "index_user_posts_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "last_name"

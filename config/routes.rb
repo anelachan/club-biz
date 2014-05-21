@@ -15,7 +15,7 @@ ClubBiz::Application.routes.draw do
   end
   resources :clubs
   resources :student_clubs, only: [:create, :destroy]
-  resources :ticket_reservations, only: [:create]
+  resources :ticket_reservations, only: :create
   resources :events do
     member do
       get :posts
@@ -26,11 +26,14 @@ ClubBiz::Application.routes.draw do
   end
   resources :posts # try switch the relationship for posts-users
                     # see if you can access its member "user"?
-  resources :ads
-  resources :announcements
-  resources :messages
-  resources :user_messages
-  resources :registered_clubs
+  resources :ads, only: :create
+  resources :announcements, only: :create
+  resources :messages, only: :create
+  resources :registered_clubs do
+    member do
+      get :officers
+    end
+  end
   resources :officers
   root 'static_pages#home'
   match '/signup',  to: 'students#new',         via: 'get'
