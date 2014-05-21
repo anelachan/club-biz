@@ -3,7 +3,8 @@ class Student < User
   has_many :clubs, through: :student_clubs
   has_many :ticket_reservations
   has_many :events, through: :ticket_reservations 
-  has_many :posts, through: :events
+
+  has_many :messages
 
   def self.table_name_prefix
     'student_'
@@ -29,9 +30,8 @@ class Student < User
     ticket_reservations.create!(event_id: e.id)
   end
 
-  def add_post(p)
-    @post = Post.find(p)
+  def add_message!(m)
+    user_messages.create!(message_id: m.id)
   end
-  
   
 end

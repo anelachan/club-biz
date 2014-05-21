@@ -1,0 +1,13 @@
+<% provide(:title, @title) %>
+<div class="span8">
+    <h3><%= @title %></h3>
+    <% if @posts.any? %>
+      <ul class="content">
+        <% @posts.each do |post| %>
+		  <%= post.user.last_name %>
+	  	 <%= post.content %>    
+  		  <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>

@@ -4,17 +4,21 @@ class PostsController < ApplicationController
   def create
     @event = Event.find(params[:post][:event_id])
     @post = @event.posts.build(post_params)
-  	@post.user_id = current_user.id
+    @post.user_id = current_user.id
 
-  	if @post.save
-  	  current_user.add_post(@post)
-  	  flash[:success] = "Post created."
-  	  redirect_to @event
-  	else
-  	  render @event
-  	end
+    if @post.save
+      current_user.add_post(@post)
+      flash[:success] = "Post created."
+      redirect_to @event
+    else
+      render @event
+    end
   end
 
+  def index
+    @posts = Post.all
+  end
+  
   private 
 
     def post_params

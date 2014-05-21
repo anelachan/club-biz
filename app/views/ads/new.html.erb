@@ -1,0 +1,7 @@
+<%= form_for(@ad) do |f| %>
+  <div><%= f.hidden_field :event_id %></div>
+  <div class="field">
+    <%= f.text_area :content, placeholder: "Write your ad copy here..." %>
+  </div>
+  <%= f.submit "Create and send ad", class: "btn btn-large btn-primary" %>
+<% end %>

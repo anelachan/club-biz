@@ -28,6 +28,16 @@ class StudentsController < UsersController
     render 'show_events'
   end
 
+  def messages
+    @title = 'Messages'
+    @student = Student.find(params[:id])
+    @messages = @student.messages
+    render 'show_messages'
+  end
+
+  def show
+  end
+
   private
 
     def user_params

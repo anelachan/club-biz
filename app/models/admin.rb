@@ -1,7 +1,6 @@
 class Admin < User 
   has_one :club, foreign_key: "admin_id", dependent: :destroy
   has_many :events, through: :club, dependent: :destroy, source: :club
-  has_many :posts, through: :events
 
   def add_club(c)
   	@club = Club.find(c)

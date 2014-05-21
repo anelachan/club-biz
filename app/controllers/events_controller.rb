@@ -22,10 +22,29 @@ class EventsController < ApplicationController
     @posts = @event.posts
   end
 
+  def posts
+    @event = Event.find(params[:id])
+    @posts = @event.posts
+    render 'show_posts'
+  end
+
+  def ads
+    @event = Event.find(params[:id])
+    render 'show_ads'
+  end
+
   def edit
+    @event = Event.find(params[:id])
   end
 
   def update
+    @event = Event.find(params[:id])
+    if @event.update_attributes(event_params)
+      flash[:success] = "Event updated"
+      redirect_to @event
+    else
+      render 'edit'
+    end
   end
 
   def index
@@ -42,7 +61,7 @@ class EventsController < ApplicationController
 
     def event_params
       params.require(:event).permit(:name, :date, :start_time, :end_time,
-      	:location, :description, :ticket_price, :ticket_purchase_instructions,
+      	:location, :description, :ticket_price, :initial_tickets_avail, :ticket_purchase_instructions,
       	:sales_start, :sales_end, :conditions, :website_URL)
     end
 

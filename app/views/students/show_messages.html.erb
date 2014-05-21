@@ -1,0 +1,14 @@
+<% provide(:title, @title) %>
+<div class="span8">
+    <h3><%= @title %></h3>
+    <% if @messages.any? %>
+      <ul class="clubs">
+          <% @messages.each do |message| %>
+		    <li>
+			  <%= message.content %>
+			</li>
+  		  <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>

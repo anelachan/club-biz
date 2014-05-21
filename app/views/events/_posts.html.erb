@@ -1,0 +1,10 @@
+        <ul>
+        <% @posts.each do |post|%>
+          <li>
+            <span class="content">
+              <%= post.user %>
+              <%= post.content %>
+            </span>
+          </li>
+        <% end %>
+      </ul>

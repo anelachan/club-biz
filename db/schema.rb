@@ -11,11 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140519232234) do
+ActiveRecord::Schema.define(version: 20140521010347) do
 
   create_table "admin_data", force: true do |t|
     t.string   "position"
     t.string   "phone"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ads", force: true do |t|
+    t.text     "content"
+    t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -50,12 +57,22 @@ ActiveRecord::Schema.define(version: 20140519232234) do
 
   add_index "events", ["name"], name: "index_events_on_name"
 
+  create_table "messages", force: true do |t|
+    t.integer  "sender_id"
+    t.text     "content"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "student_id"
+  end
+
+  add_index "messages", ["student_id"], name: "index_messages_on_student_id"
+
   create_table "posts", force: true do |t|
     t.string   "content"
     t.integer  "event_id"
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_id"
   end
 
   create_table "student_clubs", force: true do |t|
@@ -84,6 +101,28 @@ ActiveRecord::Schema.define(version: 20140519232234) do
   add_index "ticket_reservations", ["event_id"], name: "index_ticket_reservations_on_event_id"
   add_index "ticket_reservations", ["student_id", "event_id"], name: "index_ticket_reservations_on_student_id_and_event_id", unique: true
   add_index "ticket_reservations", ["student_id"], name: "index_ticket_reservations_on_student_id"
+
+  create_table "user_messages", force: true do |t|
+    t.integer  "message_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_messages", ["message_id", "user_id"], name: "index_user_messages_on_message_id_and_user_id", unique: true
+  add_index "user_messages", ["message_id"], name: "index_user_messages_on_message_id"
+  add_index "user_messages", ["user_id"], name: "index_user_messages_on_user_id"
+
+  create_table "user_posts", force: true do |t|
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_posts", ["post_id"], name: "index_user_posts_on_post_id"
+  add_index "user_posts", ["user_id", "post_id"], name: "index_user_posts_on_user_id_and_post_id", unique: true
+  add_index "user_posts", ["user_id"], name: "index_user_posts_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "last_name"
