@@ -5,6 +5,8 @@
       <ul class="clubs">
           <% @messages.each do |message| %>
 		    <li>
+        <%= message.created_at %>
+        <%= message.club.name %>
 			  <%= message.content %>
 			</li>
   		  <% end %>

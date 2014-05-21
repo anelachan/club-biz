@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521013459) do
+ActiveRecord::Schema.define(version: 20140521062815) do
 
   create_table "admin_data", force: true do |t|
     t.string   "position"
@@ -65,14 +65,24 @@ ActiveRecord::Schema.define(version: 20140521013459) do
   add_index "events", ["name"], name: "index_events_on_name"
 
   create_table "messages", force: true do |t|
-    t.integer  "sender_id"
+    t.integer  "club_id"
     t.text     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "student_id"
   end
 
+  add_index "messages", ["club_id"], name: "index_messages_on_club_id"
   add_index "messages", ["student_id"], name: "index_messages_on_student_id"
+
+  create_table "officers", force: true do |t|
+    t.string   "last_name"
+    t.string   "first_name"
+    t.string   "email"
+    t.string   "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "posts", force: true do |t|
     t.string   "content"
@@ -81,6 +91,15 @@ ActiveRecord::Schema.define(version: 20140521013459) do
     t.datetime "updated_at"
     t.integer  "user_id"
   end
+
+  create_table "registered_clubs", force: true do |t|
+    t.string   "name"
+    t.integer  "officer_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "registered_clubs", ["officer_id"], name: "index_registered_clubs_on_officer_id"
 
   create_table "student_clubs", force: true do |t|
     t.integer  "student_id"

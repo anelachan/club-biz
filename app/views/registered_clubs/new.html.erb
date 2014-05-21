@@ -1,0 +1,15 @@
+<% provide(:title, 'Add a registered club') %>
+<h1>Create event</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@registered_club) do |f| %>
+      <%= render 'shared/error_messages', object: @registered_club %>
+
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.submit "1. Add club name", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

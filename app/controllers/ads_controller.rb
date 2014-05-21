@@ -8,7 +8,7 @@ class AdsController < ApplicationController
   	  flash[:success] = "Ad created!"
   	  @event.club.students.each do |student|
         @message = Message.new(ad_params)
-        @message.sender_id = @event.club_id
+        @message.club_id = @event.club_id
         @message.student_id = student.id
         @message.save
   	  end

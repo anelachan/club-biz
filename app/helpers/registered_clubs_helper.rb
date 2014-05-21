@@ -1,0 +1,2 @@
+module RegisteredClubsHelper
+end

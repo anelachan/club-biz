@@ -10,7 +10,7 @@ class AnnouncementsController < ApplicationController
   	  flash[:success] = "Posted announcement."
   	  @event.students.each do |student|
         @message = Message.new(announcement_params)
-        @message.sender_id = @event.club_id
+        @message.club_id = @event.club_id
         @message.student_id = student.id
         @message.save
   	  end

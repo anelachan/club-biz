@@ -19,8 +19,10 @@
         <li><%= @event.ticket_price %></li>
       </ul>
       </div>
-      <%= render 'join_form'%>
-      <%= render 'post_form'%>
+      <% if student? %>
+        <%= render 'join_form'%>
+        <%= render 'post_form'%>
+      <% end %> 
 
       <% if @posts.any? %>
         <%= render "posts" %>

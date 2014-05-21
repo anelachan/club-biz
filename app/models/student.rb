@@ -3,7 +3,6 @@ class Student < User
   has_many :clubs, through: :student_clubs
   has_many :ticket_reservations
   has_many :events, through: :ticket_reservations 
-
   has_many :messages
 
   def self.table_name_prefix

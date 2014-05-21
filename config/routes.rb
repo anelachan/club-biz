@@ -30,6 +30,8 @@ ClubBiz::Application.routes.draw do
   resources :announcements
   resources :messages
   resources :user_messages
+  resources :registered_clubs
+  resources :officers
   root 'static_pages#home'
   match '/signup',  to: 'students#new',         via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
