@@ -1,0 +1,8 @@
+<% provide(:title, @event.name) %>
+<%= form_for(@event.announcements.build(event_id: @event.id)) do |f| %>
+  <div><%= f.hidden_field :event_id %></div>
+  <div class="field">
+    <%= f.text_area :content, placeholder: "Compose announcement..." %>
+  </div>
+  <%= f.submit "Post announcement", class: "btn btn-large btn-primary" %>
+<% end %>

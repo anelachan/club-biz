@@ -1,8 +1,4 @@
 class AdsController < ApplicationController
-  def new
-  	@event = Event.find(params[:ad][:event_id])
-  	@ad = @event.ads.build(ad_params)
-  end
 
   def create
   	@event = Event.find(params[:ad][:event_id])
@@ -18,7 +14,7 @@ class AdsController < ApplicationController
   	  end
   	  redirect_to @event
   	else
-  	  render 'new'
+  	  render 'event/ads'
   	end
   end
 

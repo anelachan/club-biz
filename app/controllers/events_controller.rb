@@ -33,6 +33,11 @@ class EventsController < ApplicationController
     render 'show_ads'
   end
 
+  def announcements
+    @event = Event.find(params[:id])
+    render 'show_announcements'
+  end
+
   def edit
     @event = Event.find(params[:id])
   end

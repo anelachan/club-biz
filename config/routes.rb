@@ -21,11 +21,13 @@ ClubBiz::Application.routes.draw do
       get :posts
       get :club
       get :ads
+      get :announcements
     end
   end
   resources :posts # try switch the relationship for posts-users
                     # see if you can access its member "user"?
   resources :ads
+  resources :announcements
   resources :messages
   resources :user_messages
   root 'static_pages#home'

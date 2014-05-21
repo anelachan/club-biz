@@ -4,11 +4,10 @@ class Event < ActiveRecord::Base
   has_many :students, through: :ticket_reservations, source: :student
   has_many :posts, foreign_key: "event_id", dependent: :destroy
   has_many :ads, foreign_key: "event_id", dependent: :destroy
-
+  has_many :announcements, foreign_key: "event_id", dependent: :destroy
 
   validates :name, presence:true
   validates :date, presence:true
-
   validates :start_time, presence:true # ADD BETTER VALIDATION
   validates :end_time, presence:true
   validates :location, presence:true

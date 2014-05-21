@@ -14,10 +14,6 @@ class PostsController < ApplicationController
       render @event
     end
   end
-
-  def index
-    @posts = Post.all
-  end
   
   private 
 
