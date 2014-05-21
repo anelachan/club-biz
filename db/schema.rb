@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521103619) do
+ActiveRecord::Schema.define(version: 20140521104312) do
 
   create_table "admin_data", force: true do |t|
     t.string   "position"
@@ -138,5 +138,15 @@ ActiveRecord::Schema.define(version: 20140521103619) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["remember_token"], name: "index_users_on_remember_token"
+
+  create_table "verifications", force: true do |t|
+    t.string   "name"
+    t.integer  "uni_club_id"
+    t.string   "president_last_name"
+    t.string   "president_first_name"
+    t.string   "president_email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
 end

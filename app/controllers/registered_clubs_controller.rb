@@ -19,7 +19,7 @@ class RegisteredClubsController < ApplicationController
 
   private
   	def registered_club_params
-  	  params.require(:registered_club).permit(:name)
+  	  params.require(:registered_club).permit(:name, :uni_club_id)
   	end
 
 end

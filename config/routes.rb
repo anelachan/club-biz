@@ -35,6 +35,8 @@ ClubBiz::Application.routes.draw do
     end
   end
   resources :officers
+  resources :verifications
+
   root 'static_pages#home'
   match '/signup',  to: 'students#new',         via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'

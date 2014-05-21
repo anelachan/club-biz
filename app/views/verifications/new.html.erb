@@ -1,0 +1,27 @@
+<% provide(:title, 'Verify your club') %>
+<h1>Club verification</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@verification) do |f| %>
+      <%= render 'shared/error_messages', object: @verification %>
+
+      <%= f.label :name, 'Club name' %>
+      <%= f.text_field :name %>
+
+      <%= f.label :uni_club_id, 'Uni Club ID' %>
+      <%= f.text_field :uni_club_id %>
+
+      <%= f.label :president_first_name, 'President\'s first name' %>
+      <%= f.text_field :president_first_name %>
+
+      <%= f.label :president_last_name, 'President\'s last name' %>
+      <%= f.text_field :president_last_name %>
+
+      <%= f.label :president_email, 'President\'s email address'%>
+      <%= f.text_field :president_email %>
+
+      <%= f.submit "Verify", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>
