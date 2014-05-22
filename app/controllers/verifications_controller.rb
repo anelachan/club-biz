@@ -10,7 +10,7 @@ class VerificationsController < ApplicationController
   	if @verification.save
   	  if verified?
 	  	  flash[:success] = "Club verified."
-	  	  redirect_to new_admin_path ({:id => registered_club.id})
+	  	  redirect_to new_admin_path ({:remember_token => @verification.remember_token})
   	  else
 	  	  flash[:error] = "Sorry, your club was not found in our system. 
 	  	  Please check your details and try again."

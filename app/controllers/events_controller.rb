@@ -22,6 +22,12 @@ class EventsController < ApplicationController
     @posts = @event.posts
   end
 
+  def new_reservation
+    @event = Event.find(params[:id])
+    @ticket_reservation = current_user.ticket_reservations.build(event_id: @event.id)
+    render 'show_new_reservation'
+  end
+
   def posts
     @event = Event.find(params[:id])
     @posts = @event.posts

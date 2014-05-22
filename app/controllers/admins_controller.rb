@@ -1,13 +1,10 @@
 class AdminsController < ApplicationController
+  before_action :signed_in_user, only: [:details, :events]
+  before_action :correct_user, only: [:details, :events]
+  before_action :verified_club, only: [:new, :create]
+
   def new
-    @registered_club = RegisteredClub.find(params[:id]) 
-    # this is no good, you could write in any id you wanted as long as it exists!
-    # idea... store a hash of the registered club ids, a kind of password?
-    # so that any user can't just write in id=# and create an admin account for themselves?
     @admin = Admin.new
-    rescue ActiveRecord::RecordNotFound # user cannot just go to admins/new!
-      flash[:error] = "You must be registered with the university to create an account."
-      redirect_to new_verification_path
   end
 
   def create
@@ -18,10 +15,6 @@ class AdminsController < ApplicationController
     else
       render 'new'
     end
-  end
-
-  def club # NEEDED?
-    @club = @admin.club
   end
 
   def details
@@ -42,6 +35,19 @@ class AdminsController < ApplicationController
     def admin_params
       params.require(:admin).permit(:last_name, :first_name, :email, 
         :password, :password_confirmation)
+    end
+
+    def signed_in__user
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
+
+    def verified_club
+      redirect_to new_verification_path, notice: "Only verified clubs can register with Club-Biz." unless Verification.exists?(remember_token: params[:remember_token])
+    end
+
+    def correct_user
+      @admin = Admin.find(params[:id])
+      redirect_to(root_url) unless current_user?(@admin)
     end
     
 end

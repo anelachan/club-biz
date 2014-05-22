@@ -1,0 +1,16 @@
+      <h1>
+        <%= @event.name %>
+      </h1>
+<ul class="content">
+	<li><%= @event.ticket_purchase_instructions %></li>
+    <li><%= @event.conditions %></li>
+    <li><%= @event.sales_start %></li>
+    <li><%= @event.sales_end %></li>
+</ul>
+
+<%= form_for(@ticket_reservation) do |f| %>
+  <div><%= f.hidden_field :event_id %></div>
+  <%= f.label :num_tickets, 'Number of tickets' %>
+  <%= f.select :num_tickets, (1..20).to_a, selected: @ticket_reservation.num_tickets %>
+  <%= f.submit "Reserve tickets", class: "btn btn-large btn-primary" %>
+<% end %>

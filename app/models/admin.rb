@@ -3,8 +3,9 @@ class Admin < User
   has_many :events, through: :club, dependent: :destroy, source: :club
   has_one :admin_detail
 
-  def add_post(p)
+  def add_post(p) #needed?
     @post = Post.find(p)
   end
+
 
 end

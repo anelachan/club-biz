@@ -16,12 +16,13 @@ ClubBiz::Application.routes.draw do
   end
   resources :clubs
   resources :student_clubs, only: [:create, :destroy]
-  resources :ticket_reservations, only: :create
+  resources :ticket_reservations
   resources :events do
     member do
       get :club
       get :ads
       get :announcements
+      get :new_reservation
     end
   end
   resources :posts do

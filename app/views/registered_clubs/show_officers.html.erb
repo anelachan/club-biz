@@ -7,13 +7,13 @@
       <div><%= f.hidden_field :registered_club_id %></div>
       <%= render 'shared/error_messages', object: @officer %>
 
-      <%= f.label :last_name %>
-      <%= f.text_field :last_name %>
-
-      <%= f.label :first_name %>
+      <%= f.label :first_name, 'President\'s first name' %>
       <%= f.text_field :first_name %>
 
-      <%= f.label :email %>
+      <%= f.label :last_name, 'President\'s last name' %>
+      <%= f.text_field :last_name %>
+
+      <%= f.label :email, 'President\'s email' %>
       <%= f.text_field :email %>
 
       <%= f.submit "Complete", class: "btn btn-large btn-primary" %>
