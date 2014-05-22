@@ -3,10 +3,6 @@ class Admin < User
   has_many :events, through: :club, dependent: :destroy, source: :club
   has_one :admin_detail
 
-  def add_club(c)
-  	@club = Club.find(c)
-  end
-
   def add_post(p)
     @post = Post.find(p)
   end

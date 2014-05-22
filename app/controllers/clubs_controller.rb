@@ -15,7 +15,7 @@ class ClubsController < ApplicationController
     # user wouldn't get to register an account becuz already has a user...
     # ideally tokens would expire, if registration not completed then user should
     # be deleted. oh well.
-    rescue NoMethodError
+    rescue NoMethodError # user can't just go in to new, or type in any old number as param.
       flash[:error] = "You must be a club administrator registered with Club-Biz to create a club profile."
       redirect_to new_verification_path
   end
@@ -33,10 +33,11 @@ class ClubsController < ApplicationController
   end
 
   def edit
-    
+    @current_user = current_user 
   end
 
   def update
+    @club = current_user.club
   	if @club.update_attributes(club_params)
   		flash[:success] = "Club profile updated"
   		redirect_to @club
