@@ -1,0 +1,35 @@
+<% provide(:title, 'Provide admin details') %>
+<h1>Sign up</h1>
+
+<div class="row">
+  <div class="span6 offset3">
+    <%= form_for(@admin_detail) do |f| %>
+      <div><%= f.hidden_field :registered_club_id %></div>
+      <div><%= f.hidden_field :admin_id %></div>
+      <%= render 'shared/error_messages', object: @admin_detail %>
+
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name %>
+
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+
+      <%= f.label :position, 'Position in club' %>
+      <%= f.text_field :position %>
+
+      <%= f.label :phone %>
+      <%= f.text_field :phone %>
+
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+
+      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.password_field :password_confirmation %>
+
+      <%= f.submit "Create admin account", class: "btn btn-large btn-primary" %>
+    <% end %>
+  </div>
+</div>

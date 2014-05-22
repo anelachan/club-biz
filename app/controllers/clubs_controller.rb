@@ -1,5 +1,4 @@
 class ClubsController < ApplicationController
-  before_action :signed_in_user
   # ADD MORE ACCESS CONTROL
 
   def show
@@ -8,15 +7,25 @@ class ClubsController < ApplicationController
   end
 
   def new
-    @club = Club.new
+    @admin = Admin.find_by(remember_token: params[:remember_token])
+    @club = @admin.build_club(admin_id: @admin.id)
+    # will throw an exception w/o the token and redirect
+    # problem, what if user has given up and not created club profile,
+    # then tries to go in and create profile? 
+    # user wouldn't get to register an account becuz already has a user...
+    # ideally tokens would expire, if registration not completed then user should
+    # be deleted. oh well.
+    rescue NoMethodError
+      flash[:error] = "You must be a club administrator registered with Club-Biz to create a club profile."
+      redirect_to new_verification_path
   end
 
   def create
-    @club = Club.new(club_params) # change this to build?
-    @club.admin_id = current_user.id
+    @admin = Admin.find(params[:club][:admin_id])
+    @club = @admin.build_club(club_params)
   	if @club.save
   		flash[:success] = "Club created."
-      current_user.add_club(@club)
+      sign_in (@admin)
   		redirect_to @club
   	else
   		render 'new'

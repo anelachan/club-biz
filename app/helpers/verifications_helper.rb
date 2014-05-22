@@ -27,5 +27,8 @@ module VerificationsHelper
   	club.officers.exists?(position: "President", email: @verification.president_email)
   end
 
-
+  def registered_club
+  	RegisteredClub.find_by(uni_club_id: @verification.uni_club_id)
+  end
+  
 end

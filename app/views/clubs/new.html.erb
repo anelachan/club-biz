@@ -4,6 +4,7 @@
 <div class="row">
   <div class="span6 offset3">
     <%= form_for(@club) do |f| %>
+      <div><%= f.hidden_field :admin_id %></div>
       <%= render 'shared/error_messages', object: @club %>
 
       <%= f.label :name %>

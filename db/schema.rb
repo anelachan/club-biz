@@ -11,14 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140521104312) do
+ActiveRecord::Schema.define(version: 20140522033837) do
 
-  create_table "admin_data", force: true do |t|
+  create_table "admin_details", force: true do |t|
     t.string   "position"
     t.string   "phone"
+    t.integer  "admin_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "admin_details", ["admin_id"], name: "index_admin_details_on_admin_id"
 
   create_table "ads", force: true do |t|
     t.text     "content"
@@ -98,6 +101,7 @@ ActiveRecord::Schema.define(version: 20140521104312) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "uni_club_id"
+    t.integer  "admin_id"
   end
 
   add_index "registered_clubs", ["name"], name: "index_registered_clubs_on_name"
