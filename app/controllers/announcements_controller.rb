@@ -4,7 +4,8 @@ class AnnouncementsController < ApplicationController
   	@event = Event.find(params[:announcement][:event_id])
   	@announcement = @event.announcements.build(announcement_params)
   	@post = @event.posts.build(announcement_params)
-  	@post.user_id = current_user.id
+    @post.poster = @event.club.name
+  	@post.user_id = current_user.id # not actually using
 
   	if @announcement.save and @post.save
   	  flash[:success] = "Posted announcement."

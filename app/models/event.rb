@@ -7,9 +7,8 @@ class Event < ActiveRecord::Base
   has_many :announcements, foreign_key: "event_id", dependent: :destroy
 
   validates :name, presence:true
-  validates :date, presence:true
-  validates :start_time, presence:true # ADD BETTER VALIDATION
-  validates :end_time, presence:true
+  validates :start, presence:true # ADD BETTER VALIDATION
+  validates :end, presence:true
   validates :location, presence:true
   validates :description, presence:true # min length?
   validates :ticket_price, presence:true
@@ -19,8 +18,32 @@ class Event < ActiveRecord::Base
   validates :sales_end, presence:true
   validates :conditions, presence:true
 
-  def add_post(p)
+  def add_post(p) #delete?
     @post = Post.find(p)
+  end
+
+  def start_has_time
+  end
+
+  def end_has_time
+  end
+
+  def sales_start_has_time
+  end
+
+  def sales_end_has_time
+  end
+
+  def start_valid
+  end
+
+  def end_valid
+  end
+
+  def sales_start_valid
+  end
+
+  def sales_end_valid
   end
 
 end

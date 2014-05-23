@@ -1,30 +1,71 @@
 <% provide(:title, @event.name) %>
 <div class="row">
+<div class = "span8 offset2">
+  <% if admin? %>
+    <%= render 'tools'%>
+  <% end %>
 
-
-      <h1>
-        <%= @event.name %>
-      </h1>
-      <% if admin? %>
-        <div class="span8">
-          <%= render 'tools'%>
-      <% end %>
-      <ul>
-        <li>Hosted by: <%= @event.club.name %></li>
-      	<li><%= @event.date %></li>
-      	<li><%= @event.start_time %></li>
-      	<li><%= @event.end_time %></li>
-      	<li><%= @event.location %></li>
-      	<li><%= @event.description %></li>
-        <li><%= @event.ticket_price %></li>
+  <head>
+    <h1>
+      <%= @event.name %>
+    </h1>
+  </head>
+  <body>
+    <section>
+      <ul class="generic-list">
+        <li>
+          <b>Hosted by </b>
+          <%= @event.club.name %>
+        </li>
+        <li>
+          <b>Start </b>
+          <%= l @event.start %>
+          <b>End</b>
+          <%= l @event.end %>
+        </li>
+        <li>
+          <b>Location</b>
+          <%= @event.location %>
+        </li>
+        <li>
+          <b>Ticket price</b>
+          <%= number_to_currency(@event.ticket_price) %>
+          <b>Tickets remaining</b> 
+          <%= @tickets_remaining %>
+        </li>
       </ul>
-      </div>
+
+      <% if student? and !current_user.joined?(@event) %>
+        <br>
+        <%= link_to 'Join and reserve tickets', 
+        new_reservation_event_path, class: "btn btn-primary btn-sm" %>
+      <% elsif student? %>
+        <em> You are attending this event. </em>
+      <% end %>
+
+    </section>
+
+    <section>
+      <h4>Event Description</h4>
+      <%= @event.description %>
+    </section>
+
+    <section>
+      <h4>Posts</h4>
       <% if student? %>
-        <%= render 'join_form'%>
         <%= render 'post_form'%>
+        </div>
       <% end %> 
 
       <% if @posts.any? %>
-        <%= render "posts" %>
+        <%= render 'posts' %>
+      <% else %>
+      No posts yet.
       <% end %>
+    </section>
+
+  </body>
+
+
+</div>
 </div>

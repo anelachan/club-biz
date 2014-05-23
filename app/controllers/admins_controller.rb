@@ -1,7 +1,7 @@
 class AdminsController < ApplicationController
-  before_action :signed_in_user, only: [:details, :events]
-  before_action :correct_user, only: [:details, :events]
-  before_action :verified_club, only: [:new, :create]
+  before_action :signed_in_user, only: [:events]
+  before_action :correct_user, only: [:events]
+  before_action :verified_club, only: [:new]
 
   def new
     @admin = Admin.new
@@ -37,12 +37,12 @@ class AdminsController < ApplicationController
         :password, :password_confirmation)
     end
 
-    def signed_in__user
+    def signed_in_user
       redirect_to signin_url, notice: "Please sign in." unless signed_in?
     end
 
     def verified_club
-      redirect_to new_verification_path, notice: "Only verified clubs can register with Club-Biz." unless Verification.exists?(remember_token: params[:remember_token])
+      redirect_to new_verification_path, notice: "First verify your club." unless Verification.exists?(remember_token: params[:remember_token])
     end
 
     def correct_user

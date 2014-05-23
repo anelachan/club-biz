@@ -1,10 +1,21 @@
-        <ul>
-        <% @posts.each do |post|%>
-          <li>
-            <span class="content">
-              <%= post.user %>
-              <%= post.content %>
-            </span>
-          </li>
-        <% end %>
-      </ul>
+<% if student? %>
+  <div class = "span8 offset2">
+<% end %>
+            
+  <% @posts.each do |post| %>
+    <ul class = "generic-list">
+
+    	<% if post.user.type == 'Student' %>
+	      <li><b><%= post.user.first_name + ' ' + post.user.last_name%></b></li>
+	    <% elsif post.user.type == 'Admin' %>
+	      <li><b><%= post.user.club.name %></b></li>
+	    <% end %>
+
+	      <li><%= post.content %></li>
+	      <li><small><em><%= l post.created_at %></em></small></li>
+    </ul>
+  <% end %>
+
+<% if student? %>
+  </div>
+<% end %>

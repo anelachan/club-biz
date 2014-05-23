@@ -4,8 +4,7 @@ class TicketReservationsController < ApplicationController
   def create
   	@event = Event.find(params[:ticket_reservation][:event_id])
   	@ticket_reservation = current_user.ticket_reservations.build(reservation_params)
-
-  	if @ticket_reservation.save
+  	if tickets_remaining? and @ticket_reservation.save
   	  flash[:success] = "Reservation completed."
   	  send_message
   	  redirect_to @event
@@ -22,17 +21,21 @@ class TicketReservationsController < ApplicationController
 
    	def confirmation_content
    	  content = "This is a confirmation of your reservation for " + 
-   	  @ticket_reservation.num_tickets.to_s + " tickets to " + @event.name +
-   	  ". It is your responsibility to pick up and purchase your tickets. 
+   	  @event.name + ". Number of tickets purchased: " + @ticket_reservation.num_tickets.to_s +
+      ". It is your responsibility to pick up and purchase your tickets. 
    	  Instructions are as follows: " +
    	  @event.ticket_purchase_instructions
    	end
 
    	def send_message
-   	  @message = Message.new(content: confirmation_content)
+   	  @message = Message.new(content: confirmation_content) # change to build?
       @message.club_id = @event.club_id
       @message.student_id = current_user.id
       @message.save
+    end
+
+    def tickets_remaining?
+      @event.initial_tickets_avail > TicketReservation.sum(:num_tickets)
     end
 
 end

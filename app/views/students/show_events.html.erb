@@ -1,14 +1,18 @@
 <% provide(:title, @title) %>
-<div class="span8">
-    <h3><%= @title %></h3>
-    <% if @events.any? %>
-      <ul class="clubs">
-          <% @events.each do |event| %>
-		    <li>
-			  <%= link_to event.name, event %>
-			</li>
-  		  <% end %>
-      </ul>
-    <% end %>
-  </div>
+<h1>My Events</h1>
+<div class = "span6 offset3">
+  <% if @events.any? %>
+    <ol class="clubs">
+      <% @events.each do |event| %>
+        <li>
+          <%= l event.start %>
+          &nbsp;&nbsp;
+          <%= link_to event.name, event %>
+        </li>
+      <% end %>
+    </ol>
+  <% else %>
+  You haven't joined any events yet.
+  <% end %>
 </div>
+

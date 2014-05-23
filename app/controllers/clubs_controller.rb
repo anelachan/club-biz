@@ -1,5 +1,7 @@
 class ClubsController < ApplicationController
-  # ADD MORE ACCESS CONTROL
+before_action :has_admin_acct, only: [:new]
+before_action :signed_in_user, only: [:edit, :update]
+before_action :correct_user, only: [:edit, :update]
 
   def show
   	@club = Club.find(params[:id])
@@ -9,22 +11,13 @@ class ClubsController < ApplicationController
   def new
     @admin = Admin.find_by(remember_token: params[:remember_token])
     @club = @admin.build_club(admin_id: @admin.id)
-    # will throw an exception w/o the token and redirect
-    # problem, what if user has given up and not created club profile,
-    # then tries to go in and create profile? 
-    # user wouldn't get to register an account becuz already has a user...
-    # ideally tokens would expire, if registration not completed then user should
-    # be deleted. oh well.
-    rescue NoMethodError # user can't just go in to new, or type in any old number as param.
-      flash[:error] = "You must be a club administrator registered with Club-Biz to create a club profile."
-      redirect_to new_verification_path
   end
 
   def create
     @admin = Admin.find(params[:club][:admin_id])
     @club = @admin.build_club(club_params)
   	if @club.save
-  		flash[:success] = "Club created."
+  		flash[:success] = "Club profile created! The registration process is complete."
       sign_in (@admin)
   		redirect_to @club
   	else
@@ -55,5 +48,20 @@ class ClubsController < ApplicationController
     def club_params
       params.require(:club).permit(:name, :description, :website_url)
     end
+
+    def has_admin_acct
+      redirect_to new_verification_path, notice: "You must be a club administrator registered with Club-Biz to create a club profile." unless Admin.exists?(remember_token: params[:remember_token])
+    end
+
+    def signed_in_user
+      redirect_to signin_url, notice: "Please sign in." unless signed_in?
+    end
+
+    def correct_user
+      @club = Club.find(params[:id])
+      @admin = Admin.find_by(id: @club.admin_id) # the correct admin of this club
+      redirect_to(root_url) unless current_user?(@admin)
+    end
+
 
 end

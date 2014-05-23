@@ -29,6 +29,11 @@
             <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
           </ul>
 
+        <% elsif signed_in? and root? %>
+          <ul class="nav pull-right">
+            <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
+          </ul>
+
         <% end %>
       </nav>
     </div>

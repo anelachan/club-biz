@@ -1,16 +1,26 @@
 <% provide(:title, @title) %>
 <div class="span8">
-    <h3><%= @title %></h3>
     <% if @messages.any? %>
-      <ul class="clubs">
+      <table class = "table">
+        <thead>
+          <tr>
+            <th>Received at</th>
+            <th>Sender</th>
+            <th>Message</th>
+          </tr>
+        </thead>
+        <tbody>
           <% @messages.each do |message| %>
-		    <li>
-        <%= message.created_at %>
-        <%= message.club.name %>
-			  <%= message.content %>
-			</li>
-  		  <% end %>
-      </ul>
+            <tr>
+              <td class = "span2"><%= l message.created_at %></td>
+              <td class = "span2"><%= message.club.name %></td>
+        			<td class = "span6"><%= message.content %></td>
+  		      </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <em>You don't have any messages yet.</em>
     <% end %>
   </div>
 </div>

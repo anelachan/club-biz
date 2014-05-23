@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140522092708) do
+ActiveRecord::Schema.define(version: 20140523065005) do
 
   create_table "admin_details", force: true do |t|
     t.string   "position"
@@ -48,9 +48,6 @@ ActiveRecord::Schema.define(version: 20140522092708) do
 
   create_table "events", force: true do |t|
     t.string   "name"
-    t.date     "date"
-    t.time     "start_time"
-    t.time     "end_time"
     t.string   "location"
     t.text     "description"
     t.decimal  "ticket_price"
@@ -63,6 +60,8 @@ ActiveRecord::Schema.define(version: 20140522092708) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "club_id"
+    t.datetime "start"
+    t.datetime "end"
   end
 
   add_index "events", ["name"], name: "index_events_on_name"
@@ -94,6 +93,7 @@ ActiveRecord::Schema.define(version: 20140522092708) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "poster"
   end
 
   create_table "registered_clubs", force: true do |t|

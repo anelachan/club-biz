@@ -1,8 +1,12 @@
-<% provide(:title, @event.name) %>
-<%= form_for(@event.ads.build(event_id: @event.id)) do |f| %>
-  <div><%= f.hidden_field :event_id %></div>
-  <div class="field">
-    <%= f.text_area :content, placeholder: "Write ad copy here..." %>
-  </div>
-  <%= f.submit "Send ad", class: "btn btn-large btn-primary" %>
-<% end %>
+<div class = "span6 offset3">
+	<% provide(:title, 'Post an ad') %>
+	<h3>Create an ad</h3>
+	<p><em>This ad will be sent as a message to all of your club followers</em></p>
+	<%= form_for(@event.ads.build(event_id: @event.id)) do |f| %>
+	  <div><%= f.hidden_field :event_id %></div>
+	  <div class="field">
+	    <%= f.text_area :content, placeholder: "Write ad copy here...", rows: 6 %>
+	  </div>
+	  <%= f.submit "Send ad", class: "btn btn-large btn-primary" %>
+	<% end %>
+</div>

@@ -1,10 +1,14 @@
 <% provide(:title, 'Browse events') %>
 <h1>Browse events</h1>
 
-<ul class="clubs">
-  <% @events.each do |event| %>
-    <li>
-	  <%= link_to event.name, event %>
-	</li>
-  <% end %>
-</ul>
+<div class = "span6 offset3">
+	<ol class="clubs">
+	  <% @events.each do |event| %>
+	    <li>
+	      <%= l event.start %>
+	      &nbsp;&nbsp;
+		  <%= link_to event.name, event %>
+		</li>
+	  <% end %>
+	</ol>
+</div>

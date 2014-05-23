@@ -1,13 +1,16 @@
 class StudentsController < UsersController
+  before_action :clubs, only: [:signed_in_user, :correct_user]
+  before_action :events, only: [:signed_in_user, :correct_user]
 
   def new
     @student = Student.new
   end
 
   def create
-    @user = Student.new(user_params)
-    if @user.save
+    @student = Student.new(user_params)
+    if @student.save
       flash[:success] = "Welcome to Club-Biz!"
+      sign_in (@student)
       redirect_to root_url
     else
       render 'new'

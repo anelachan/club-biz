@@ -1,8 +1,10 @@
 <% provide(:title, 'Create admin account') %>
-<h1>Sign up</h1>
+<h1>Create account</h1>
 
 <div class="row">
   <div class="span6 offset3">
+    <div class="center"><b>You will use this information to log in to Club-Biz 
+      as a club administrator.</b></div>
     <%= form_for(@admin) do |f| %>
       <%= render 'shared/error_messages', object: @admin %>
 

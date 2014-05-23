@@ -1,14 +1,18 @@
-<% provide(:title, @title) %>
-<div class="span8">
-    <h3><%= @title %></h3>
-    <% if @clubs.any? %>
-      <ul class="clubs">
-          <% @clubs.each do |club| %>
-		    <li>
-			  <%= link_to club.name, club %>
-			</li>
-  		  <% end %>
-      </ul>
-    <% end %>
-  </div>
+<% provide(:title, 'My Clubs') %>
+<h1>
+  My Clubs
+</h1>
+<div class = "span6 offset3">
+  <% if @clubs.any? %>
+    <ol class="clubs">
+      <% @clubs.each do |club| %>
+        <li>
+          <%= gravatar_for club.admin %>
+          <%= link_to club.name, club %>
+        </li>
+      <% end %>
+    </ol>
+  <% else %>
+  You aren't following any clubs yet.
+  <% end %>
 </div>

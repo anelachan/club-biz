@@ -1,10 +1,13 @@
 <% provide(:title, 'Browse clubs') %>
 <h1>Browse clubs</h1>
 
+<div class = "span6 offset3">
 <ul class="clubs">
   <% @clubs.each do |club| %>
     <li>
+      <%= gravatar_for club.admin %>
 	  <%= link_to club.name, club %>
 	</li>
   <% end %>
 </ul>
+</div>

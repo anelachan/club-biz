@@ -23,11 +23,10 @@ ClubBiz::Application.routes.draw do
       get :ads
       get :announcements
       get :new_reservation
+      get :sales
     end
   end
-  resources :posts do
-    resources :users
-  end
+  resources :posts 
   resources :ads, only: :create
   resources :announcements, only: :create
   resources :messages, only: :create
@@ -44,6 +43,7 @@ ClubBiz::Application.routes.draw do
   match '/signup',  to: 'students#new',         via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

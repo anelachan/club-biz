@@ -1,8 +1,13 @@
-<% provide(:title, @event.name) %>
-<%= form_for(@event.announcements.build(event_id: @event.id)) do |f| %>
-  <div><%= f.hidden_field :event_id %></div>
-  <div class="field">
-    <%= f.text_area :content, placeholder: "Compose announcement..." %>
-  </div>
-  <%= f.submit "Post announcement", class: "btn btn-large btn-primary" %>
-<% end %>
+<div class = "span6 offset3">
+	<% provide(:title, 'Post an ad') %>
+	<h3>Post an announcement.</h3>
+	<p><em>This announcement will show up in your event's Posts, and 
+		be sent as a message to all registered attendees.</em></p>
+	<%= form_for(@event.announcements.build(event_id: @event.id)) do |f| %>
+	  <div><%= f.hidden_field :event_id %></div>
+	  <div class="field">
+	    <%= f.text_area :content, placeholder: "Compose announcement...", rows: 4 %>
+	  </div>
+	  <%= f.submit "Post announcement", class: "btn btn-large btn-primary" %>
+	<% end %>
+</div>

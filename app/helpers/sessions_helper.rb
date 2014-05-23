@@ -25,6 +25,10 @@ module SessionsHelper
     Admin.exists? id: current_user.id
   end
 
+  def root?
+    SuperUser.exists? id:current_user.id
+  end
+
   def current_user=(user)
     @current_user = user
   end
@@ -53,4 +57,5 @@ module SessionsHelper
   def store_location
     session[:return_to] = request.url if request.get?
   end
+
 end

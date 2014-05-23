@@ -1,0 +1,25 @@
+<% provide(:title, @title) %>
+<div class="span8">
+  <h3>Sales Report</h3>
+  Total Sales = $<%= @total_sales %>
+  <% if @reservations.any? %>
+      <table class = "table">
+        <thead>
+          <tr>
+            <th>Created At</th>
+            <th>Booking Made By</th>
+            <th>Number of Tickets</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @reservations.each do |reservation| %>
+            <tr>
+              <td class = "span2"><%= l reservation.created_at %></td>
+              <td class = "span4"><%= reservation.student.first_name + ' ' + reservation.student.last_name %></td>
+              <td class = "span2"><%= reservation.num_tickets %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+</div>

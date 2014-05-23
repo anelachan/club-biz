@@ -1,4 +1,6 @@
 class RegisteredClubsController < ApplicationController
+  before_action :signed_in_root, only: [:new, :create]
+
   def new
   	@registered_club = RegisteredClub.new
   end
@@ -21,5 +23,9 @@ class RegisteredClubsController < ApplicationController
   	def registered_club_params
   	  params.require(:registered_club).permit(:name, :uni_club_id)
   	end
+
+    def signed_in_root
+      redirect_to root_url, notice: "Access denied. Signed-in root users only." unless signed_in? and root?
+    end
 
 end

@@ -1,16 +1,24 @@
-      <h1>
-        <%= @event.name %>
-      </h1>
-<ul class="content">
-	<li><%= @event.ticket_purchase_instructions %></li>
-    <li><%= @event.conditions %></li>
-    <li><%= @event.sales_start %></li>
-    <li><%= @event.sales_end %></li>
-</ul>
+<div class = "span6 offset3">
+  <h1>
+    Reserve tickets for <%= @event.name %>
+  </h1>
 
-<%= form_for(@ticket_reservation) do |f| %>
-  <div><%= f.hidden_field :event_id %></div>
-  <%= f.label :num_tickets, 'Number of tickets' %>
-  <%= f.select :num_tickets, (1..20).to_a, selected: @ticket_reservation.num_tickets %>
-  <%= f.submit "Reserve tickets", class: "btn btn-large btn-primary" %>
-<% end %>
+  <ul class="generic-list">
+    <li><b>Purchase instructions</b></li>
+    <li><em>This form does not complete a ticket purchase transaction. 
+      Please follow the instructions as follows.</em></li>
+	  <li><%= @event.ticket_purchase_instructions %></li>
+    <li><em>Sales start at <%= l @event.sales_start %> </em></li>
+    <li><em>Sales end at <%= l @event.sales_end %>.</em></li>
+    <li><b>Conditions of Reservation</b></li>
+    <li><%= @event.conditions %></li>
+  </ul>
+</div>
+<div class="span2 offset3">
+  <%= form_for(@ticket_reservation) do |f| %>
+    <div><%= f.hidden_field :event_id %></div>
+    <%= f.label :num_tickets, 'Number of tickets' %>
+    <%= f.select :num_tickets, (1..20).to_a, selected: @ticket_reservation.num_tickets %>
+    <%= f.submit "Reserve tickets", class: "btn btn-large btn-primary" %>
+  <% end %>
+</div>

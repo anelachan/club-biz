@@ -1,22 +1,34 @@
 <% provide(:title, @club.name) %>
-<div class="row">
+<div class = "span6 offset3">
+  <div class="row">
+    <section>
       <h1>
+        <%= gravatar_for @club.admin %>
         <%= @club.name %>
       </h1>
-      <div class = "span8">
-      	<%= @club.description %>
-        <%= @club.website_url %>
-        <%= render 'follow_form'%>
+    </section>
 
-        <% if @events.any? %>
-	      <ul class="clubs">
-	          <% @events.each do |event| %>
-			    <li>
-				  <%= link_to event.name, event %>
-				</li>
-	  		  <% end %>
-	      </ul>
-	    <% end %>
-      </div>
+    <section>
+      <p>
+        <%= @club.description %>
+        <br><%= link_to @club.website_url, @club.website_url %>
+      </p>
+      <%= render 'follow_form'%>
+    </section>
 
+    <section>
+      <h2>Club Events</h2>
+      <% if @events.any? %>
+  	    <ul class="clubs">
+  	      <% @events.each do |event| %>
+  			    <li>
+              <%= link_to event.name, event %>
+            </li>
+  	  		<% end %>
+  	    </ul>
+      <% else %>
+        <em>No events yet.</em>
+  	  <% end %>
+  </section>
+  </div>
 </div>

@@ -1,51 +1,66 @@
-<% provide(:title, 'Create an event') %>
-<h1>Create event</h1>
+<% provide(:title, 'Edit your event') %>
+<h1>Edit your event</h1>
 
 <div class="row">
+  <%= form_for(@event) do |f| %>
   <div class="span6 offset3">
-    <%= form_for(@event) do |f| %>
-      <%= render 'shared/error_messages', object: @event %>
-
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-
-      <%= f.label :date %>
-      <%= f.date_select :date, :order => [:day, :month, :year], start_year: Date.today.year %>
-
-      <%= f.label :start_time %>
-      <%= f.text_field :start_time %>
-
-      <%= f.label :end_time %>
-      <%= f.text_field :end_time %>
-
-      <%= f.label :location %>
-      <%= f.text_field :location %>
-
-      <%= f.label :description %>
-      <%= f.text_area :description %>
-
-      <%= f.label :ticket_price %>
-      <%= f.text_field :ticket_price %>
-
-      <%= f.label :initial_tickets_avail %>
-      <%= f.text_field :initial_tickets_avail %>
-
-      <%= f.label :ticket_purchase_instructions %>
-      <%= f.text_area :ticket_purchase_instructions %>
-
-      <%= f.label :sales_start %>
-      <%= f.text_field :sales_start %>
-
-      <%= f.label :sales_end %>
-      <%= f.text_field :sales_end %>
-
-      <%= f.label :conditions %>
-      <%= f.text_field :conditions %>
-
-      <%= f.label :website_URL %>
-      <%= f.text_field :website_URL %>
-
-      <%= f.submit "Edit event", class: "btn btn-large btn-primary" %>
-    <% end %>
+    All fields are required unless otherwise stated.
+    <%= render 'shared/error_messages', object: @event %>
+    
+    <h3>Event details</h3>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
   </div>
+
+  <div class = "span3 offset3">
+    <%= f.label :start %>
+    <%= f.text_field :start, placeholder: "DD/MM/YYYY HH:MM" %>
+
+    <%= f.label :end %>
+    <%= f.text_field :end, placeholder: "DD/MM/YYYY HH:MM" %>
+  </div>
+
+
+  <div class="span6 offset3">
+    <%= f.label :location %>
+    <%= f.text_field :location %>
+
+    <%= f.label :description %>
+    <%= f.text_area :description, rows: 6 %>
+      
+    <h3>Ticket purchase information</h3>
+  </div>
+    
+  <div class ="span3 offset3">
+    <%= f.label :ticket_price, 'Ticket price $' %>
+    <%= f.text_field :ticket_price %>
+
+    <%= f.label :initial_tickets_avail %>
+    <%= f.text_field :initial_tickets_avail %>
+  </div>
+
+  <div class = "span6 offset3">
+    <%= f.label :ticket_purchase_instructions %>
+    <%= f.text_area :ticket_purchase_instructions %>
+  </div>
+
+  <div class = "span3 offset3">
+    <%= f.label :sales_start, placeholder: "DD/MM/YYYY HH:MM" %>
+    <%= f.text_field :sales_start, placeholder: "DD/MM/YYYY HH:MM" %>
+
+    <%= f.label :sales_end, placeholder: "DD/MM/YYYY HH:MM" %>
+    <%= f.text_field :sales_end, placeholder: "DD/MM/YYYY HH:MM" %>
+  </div>
+
+  <div class="span6 offset3">
+    <%= f.label :conditions %>
+    <%= f.text_area :conditions, rows: 3 %>
+
+    <h3>Additional Information</h3>
+    <%= f.label :website_URL, 'Website URL(optional)' %>
+    <%= f.text_field :website_URL %>
+
+      <%= f.submit "Create event", class: "btn btn-large btn-primary" %>
+  </div>
+  <% end %>
 </div>

@@ -1,14 +1,18 @@
 <% provide(:title, @title) %>
-<div class="span8">
-    <h3><%= @title %></h3>
-    <% if @events.any? %>
-      <ul class="clubs">
-          <% @events.each do |event| %>
-		    <li>
-			  <%= link_to event.name, event %>
-			</li>
-  		  <% end %>
-      </ul>
-    <% end %>
-  </div>
+<h1>Upcoming events</h1>
+<div class = "span6 offset3">
+  <% if @events.any? %>
+    <p><em>Click on an event to manage.</em></p>
+    <ol class="clubs">
+      <% @events.each do |event| %>
+        <li>
+          <%= l event.start %>
+          &nbsp;&nbsp;
+        <%= link_to event.name, event %>
+      </li>
+      <% end %>
+     </ol>
+  <% else %>
+  <em>No events yet. Why not <%= link_to 'create an event', new_event_path%>?</em>
+  <% end %>
 </div>

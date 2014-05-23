@@ -10,6 +10,8 @@ class Club < ActiveRecord::Base
   VALID_URL_REGEX = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}(:[0-9]{1,5})?(\/.*‌​)?$/ix
   validates :website_url, format: { with: VALID_URL_REGEX, multiline: true, allow_blank: true}
 
+  default_scope -> {order('name ASC')}
+
   def add_event(e)
   	@event = Event.find(e)
   end
