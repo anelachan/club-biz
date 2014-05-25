@@ -67,7 +67,9 @@ module EventsHelper
   	  if @events.empty?
   	  	  flash.now[:error] = "No results found"
   	  	  @events = Event.all
-  	  end
+  	  else
+          @events.uniq!
+      end
   end
 
 

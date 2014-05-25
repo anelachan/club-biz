@@ -7,7 +7,7 @@ class AdminDetailsController < ApplicationController
   		  flash[:success] = "Details stored."
   		  redirect_to new_club_path ({remember_token: @admin.remember_token})
   	else
-      flash[:error] = "There were errors in your input."
+      flash[:error] = "There were errors in your input. Make sure mobile number contains numbers only."
   		redirect_to details_admin_path ({id: @admin.id,remember_token: @admin.remember_token})
   	end
   end

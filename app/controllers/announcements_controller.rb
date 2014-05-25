@@ -4,7 +4,6 @@ class AnnouncementsController < ApplicationController
   	@event = Event.find(params[:announcement][:event_id])
   	@announcement = @event.announcements.build(announcement_params)
   	@post = @event.posts.build(announcement_params)
-    @post.poster = @event.club.name # not actually using DELETE?
   	@post.user_id = current_user.id 
 
   	if @announcement.save and @post.save

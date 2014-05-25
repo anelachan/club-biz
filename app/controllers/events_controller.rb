@@ -9,12 +9,12 @@ class EventsController < ApplicationController
   # accessible to students
   def index
     set_search
-    # filter out past events
-    @current_events = @events 
-    @current_events.each do |event|
+    # must filter out past events
+    @current_events = Array.new(@events) # safe copy
+    @current_events.each do |event| 
       @current_events.delete(event) if event.start < Time.now
     end
-    @events = @current_events
+    @events = @current_events # feed view only current events
   end
 
   def show
