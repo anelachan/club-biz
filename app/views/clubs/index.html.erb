@@ -2,12 +2,13 @@
 <h1>Browse clubs</h1>
 
 <div class = "span6 offset3">
-<ul class="clubs">
-  <% @clubs.each do |club| %>
-    <li>
-      <%= gravatar_for club.admin %>
-	  <%= link_to club.name, club %>
-	</li>
-  <% end %>
-</ul>
+	<%= render 'search_form' %>
+	<ul class="clubs">
+	  <% @clubs.each do |club| %>
+	    <li>
+	      <%= link_to (image_tag(club.logo.url, size: '100x100')), club %>
+		  <%= link_to club.name, club %>
+		</li>
+	  <% end %>
+	</ul>
 </div>

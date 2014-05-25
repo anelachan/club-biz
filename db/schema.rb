@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140523065005) do
+ActiveRecord::Schema.define(version: 20140525042508) do
 
   create_table "admin_details", force: true do |t|
     t.string   "position"
@@ -44,7 +44,13 @@ ActiveRecord::Schema.define(version: 20140523065005) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "admin_id"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
   end
+
+  add_index "clubs", ["name"], name: "index_clubs_on_name"
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -53,15 +59,19 @@ ActiveRecord::Schema.define(version: 20140523065005) do
     t.decimal  "ticket_price"
     t.integer  "initial_tickets_avail"
     t.text     "ticket_purchase_instructions"
-    t.datetime "sales_start"
-    t.datetime "sales_end"
+    t.datetime "sales_start",                  limit: 255
+    t.datetime "sales_end",                    limit: 255
     t.text     "conditions"
     t.string   "website_URL"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "club_id"
-    t.datetime "start"
-    t.datetime "end"
+    t.datetime "start",                        limit: 255
+    t.datetime "end",                          limit: 255
+    t.string   "banner_file_name"
+    t.string   "banner_content_type"
+    t.integer  "banner_file_size"
+    t.datetime "banner_updated_at"
   end
 
   add_index "events", ["name"], name: "index_events_on_name"
@@ -87,13 +97,16 @@ ActiveRecord::Schema.define(version: 20140523065005) do
     t.integer  "registered_club_id"
   end
 
+  add_index "officers", ["email"], name: "index_officers_on_email"
+  add_index "officers", ["first_name"], name: "index_officers_on_first_name"
+  add_index "officers", ["last_name"], name: "index_officers_on_last_name"
+
   create_table "posts", force: true do |t|
     t.string   "content"
     t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
-    t.string   "poster"
   end
 
   create_table "registered_clubs", force: true do |t|

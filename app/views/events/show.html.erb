@@ -5,6 +5,7 @@
     <%= render 'tools'%>
   <% end %>
 
+  <!--EVENT DESCRIPTION AND INFORMATION -->
   <head>
     <h1>
       <%= @event.name %>
@@ -12,37 +13,38 @@
   </head>
   <body>
     <section>
+      <div class="center">
+        <p>
+         <%= image_tag @event.banner.url %>
+        </p>
+      </div>
       <ul class="generic-list">
         <li>
-          <b>Hosted by </b>
-          <%= @event.club.name %>
+          <b>Hosted by </b><%= @event.club.name %>
         </li>
         <li>
-          <b>Start </b>
-          <%= l @event.start %>
-          <b>End</b>
-          <%= l @event.end %>
+          <b>Start </b><%= l @event.start %>
+          <b>End </b><%= l @event.end %>
         </li>
         <li>
-          <b>Location</b>
-          <%= @event.location %>
+          <b>Location </b><%= @event.location %>
         </li>
         <li>
-          <b>Ticket price</b>
-          <%= number_to_currency(@event.ticket_price) %>
-          <b>Tickets remaining</b> 
-          <%= @tickets_remaining %>
+          <b>Ticket price </b><%= number_to_currency(@event.ticket_price) %>
+          <b>Tickets remaining </b><%= @tickets_remaining %>
         </li>
       </ul>
 
-      <% if student? and !current_user.joined?(@event) %>
+      <!-- JOIN BUTTON, STUDENTS ONLY, FUTURE ONLY -->
+      <% if student? and !current_user.joined?(@event) and @event.start > Time.now %>
         <br>
         <%= link_to 'Join and reserve tickets', 
         new_reservation_event_path, class: "btn btn-primary btn-sm" %>
-      <% elsif student? %>
+      <% elsif student? and @event.start > Time.now %>
         <em> You are attending this event. </em>
+      <% elsif student? %> 
+        <em>This event has already happened.</em>
       <% end %>
-
     </section>
 
     <section>
@@ -50,6 +52,7 @@
       <%= @event.description %>
     </section>
 
+    <!--POST FORM AND POSTS -->
     <section>
       <h4>Posts</h4>
       <% if student? %>
@@ -57,11 +60,7 @@
         </div>
       <% end %> 
 
-      <% if @posts.any? %>
-        <%= render 'posts' %>
-      <% else %>
-      No posts yet.
-      <% end %>
+      <%= render 'posts' %>
     </section>
 
   </body>

@@ -11,14 +11,32 @@ class VerificationsController < ApplicationController
   	  if verified?
 	  	  flash[:success] = "Club verified."
 	  	  redirect_to new_admin_path ({:remember_token => @verification.remember_token})
-  	  else
+  	    # send a remember token param for crude security purposes
+      else
 	  	  flash[:error] = "Sorry, your club was not found in our system. 
 	  	  Please check your details and try again."
 	  	  render 'new'
   	  end
   	else
   		render 'new'
- 	end
+ 	  end
+  end
+
+  def update
+    @verification = Verification.new(verification_params)
+    if @verification.save
+      if verified?
+        flash[:success] = "Club verified."
+        redirect_to new_admin_path ({:remember_token => @verification.remember_token})
+        # send a remember token for crude security purposes
+      else
+        flash[:error] = "Sorry, your club was not found in our system. 
+        Please check your details and try again."
+        render 'new'
+      end
+    else
+      render 'new'
+    end
   end
 
   private

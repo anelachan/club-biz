@@ -1,3 +1,5 @@
+# used to verify a prospective Club-Biz club admin against our database
+# the first step in the club registration process
 class Verification < ActiveRecord::Base
   before_save :create_remember_token
 
@@ -7,7 +9,8 @@ class Verification < ActiveRecord::Base
   validates :president_first_name, presence: true
   validates :president_email, presence: true
 
-  def Verification.new_remember_token
+  # used to carry from verification to account setup
+  def Verification.new_remember_token 
     SecureRandom.urlsafe_base64
   end
 

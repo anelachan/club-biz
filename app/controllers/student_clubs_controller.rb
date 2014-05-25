@@ -1,5 +1,5 @@
 class StudentClubsController < ApplicationController
-  before_action :signed_in_user
+  # used by follow and unfollow buttons
 
   def create
     @club = Club.find(params[:student_club][:club_id])
@@ -18,4 +18,5 @@ class StudentClubsController < ApplicationController
       format.js
     end
   end
+
 end

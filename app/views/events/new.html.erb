@@ -58,10 +58,15 @@
     <%= f.text_area :conditions, rows: 3 %>
 
     <h3>Additional Information</h3>
+    <%= f.label :banner, 'Banner photo' %>
+    <%= f.file_field :banner %>
+  </div>
+  
+  <div class="span6 offset3">
     <%= f.label :website_URL, 'Website URL(optional)' %>
     <%= f.text_field :website_URL %>
 
-      <%= f.submit "Create event", class: "btn btn-large btn-primary" %>
+    <%= f.submit "Create event", class: "btn btn-large btn-primary" %>
     </div>
   <% end %>
 </div>

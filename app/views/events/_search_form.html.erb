@@ -1,0 +1,23 @@
+<!--Search bar for all events.-->
+<form class="form-search" action = "/search_events" method="GET">
+
+  <!--Search bar-->
+  <div class="nav-bar-header">
+  	<input type = "text" name = "search_data" style="width: 75%"/>
+  	<button type = "submit" class="btn">
+      Search
+  		<span class="icon-bar"></span>
+  	</button>
+  </div>
+  
+  <!--checkboxes--> 
+  <div class="checkbox">
+  	<label>
+  		<input type = "checkbox" name = "search_by_name" value="name">Search by <i>event</i><br>
+  	</label>
+	<label>	
+  		<input type = "checkbox" name = "search_by_club" value="club">Search by <i>club</i><br>
+  	</label>
+  </div>
+  
+</form>

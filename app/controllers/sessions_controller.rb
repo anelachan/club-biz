@@ -7,7 +7,14 @@ class SessionsController < ApplicationController
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
       sign_in user
-      redirect_back_or root_url
+      # route user to appropriate page
+      if student?
+        redirect_to events_student_path({id: user.id})
+      elsif admin?
+        redirect_to events_admin_path({id: user.id})
+      elsif root?
+        redirect_to new_registered_club_path({id: user.id})
+      end
     else
       flash.now[:error] = 'Invalid email/password combination'
       render 'new'
@@ -18,4 +25,5 @@ class SessionsController < ApplicationController
     sign_out
     redirect_to root_url
   end
+
 end

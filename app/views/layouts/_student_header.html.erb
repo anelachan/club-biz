@@ -6,6 +6,6 @@
 <ul class="nav pull-right">
   <li><%= link_to "My Events", events_student_path(current_user) %></li>
   <li><%= link_to "My Clubs", clubs_student_path(current_user) %></li>
-  <li><%= link_to "Messages", '#' %></li>
+  <li><%= link_to "Messages", messages_student_path(current_user) %></li>
   <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
 </ul>

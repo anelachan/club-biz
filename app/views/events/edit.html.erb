@@ -14,10 +14,10 @@
 
   <div class = "span3 offset3">
     <%= f.label :start %>
-    <%= f.text_field :start, placeholder: "DD/MM/YYYY HH:MM" %>
+    <%= f.text_field :start, value: @event.start.strftime("%d/%m/%Y %H:%M") %>
 
     <%= f.label :end %>
-    <%= f.text_field :end, placeholder: "DD/MM/YYYY HH:MM" %>
+    <%= f.text_field :end, value: @event.end.strftime("%d/%m/%Y %H:%M") %>
   </div>
 
 
@@ -35,8 +35,6 @@
     <%= f.label :ticket_price, 'Ticket price $' %>
     <%= f.text_field :ticket_price %>
 
-    <%= f.label :initial_tickets_avail %>
-    <%= f.text_field :initial_tickets_avail %>
   </div>
 
   <div class = "span6 offset3">
@@ -45,11 +43,11 @@
   </div>
 
   <div class = "span3 offset3">
-    <%= f.label :sales_start, placeholder: "DD/MM/YYYY HH:MM" %>
-    <%= f.text_field :sales_start, placeholder: "DD/MM/YYYY HH:MM" %>
+    <%= f.label :sales_start %>
+    <%= f.text_field :sales_start, value: @event.sales_start.strftime("%d/%m/%Y %H:%M") %>
 
-    <%= f.label :sales_end, placeholder: "DD/MM/YYYY HH:MM" %>
-    <%= f.text_field :sales_end, placeholder: "DD/MM/YYYY HH:MM" %>
+    <%= f.label :sales_end %>
+    <%= f.text_field :sales_end, value: @event.sales_end.strftime("%d/%m/%Y %H:%M") %>
   </div>
 
   <div class="span6 offset3">
@@ -57,10 +55,16 @@
     <%= f.text_area :conditions, rows: 3 %>
 
     <h3>Additional Information</h3>
+
+    <%= f.label :banner, 'Banner photo' %>
+    <%= f.file_field :banner %>
+    </div>
+
+  <div class="span6 offset3">
     <%= f.label :website_URL, 'Website URL(optional)' %>
     <%= f.text_field :website_URL %>
 
-      <%= f.submit "Create event", class: "btn btn-large btn-primary" %>
+    <%= f.submit "Update event", class: "btn btn-large btn-primary" %>
   </div>
   <% end %>
 </div>

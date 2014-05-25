@@ -6,6 +6,7 @@
     <div class="center">
       <em>You're almost there. Now create a club profile.</em>
     </div>
+    
     <%= form_for(@club) do |f| %>
       <div><%= f.hidden_field :admin_id %></div>
       <%= render 'shared/error_messages', object: @club %>
@@ -19,6 +20,10 @@
       <%= f.label :website_url, 'Website URL (optional)' %>
       <%= f.text_field :website_url %>
 
+      <%= f.label :logo, 'Club logo or image' %>
+      <%= f.file_field :logo %>
+  </div>
+  <div class="span6 offset3">
       <%= f.submit "Create club", class: "btn btn-large btn-primary" %>
     <% end %>
   </div>

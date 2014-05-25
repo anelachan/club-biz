@@ -1,8 +1,10 @@
+<!-- ONLY ACCESSIBLE TO SUPERUSERS -->
 <% provide(:title, 'Add president details') %>
 <h1>Add a registered club to the database</h1>
 
 <div class="row">
   <div class="span6 offset3">
+      <p><em>All fields required!</em></p>
       <%= form_for(@officer) do |f| %>
       <div><%= f.hidden_field :registered_club_id %></div>
       <%= render 'shared/error_messages', object: @officer %>

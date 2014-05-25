@@ -1,3 +1,4 @@
+# keeps track of followed events/clubs, received message
 class Student < User
   has_many :student_clubs
   has_many :clubs, through: :student_clubs

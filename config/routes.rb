@@ -12,11 +12,11 @@ ClubBiz::Application.routes.draw do
     member do
       get :events
       get :details
+      get :groups
     end
   end
   resources :clubs
   resources :student_clubs, only: [:create, :destroy]
-  resources :ticket_reservations
   resources :events do
     member do
       get :club
@@ -26,7 +26,8 @@ ClubBiz::Application.routes.draw do
       get :sales
     end
   end
-  resources :posts 
+  resources :ticket_reservations, only: :create
+  resources :posts, only: :create
   resources :ads, only: :create
   resources :announcements, only: :create
   resources :messages, only: :create
@@ -35,14 +36,16 @@ ClubBiz::Application.routes.draw do
       get :officers
     end
   end
-  resources :officers
-  resources :verifications
-  resources :admin_details
+  resources :officers, only: :create
+  resources :verifications, only: [:new, :create, :update]
+  resources :admin_details, only: :create
 
   root 'static_pages#home'
   match '/signup',  to: 'students#new',         via: 'get'
   match '/signin',  to: 'sessions#new',         via: 'get'
   match '/signout', to: 'sessions#destroy',     via: 'delete'
+  get 'search_events' => 'events#index'
+  get 'search_clubs' => 'clubs#index'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

@@ -1,38 +1,60 @@
 class EventsController < ApplicationController
+  include EventsHelper
   before_action :signed_in_user
   before_action :student_user, only: [:new_reservation]
+  before_action :not_in_past, only: [:new_reservation]
   before_action :not_already_attending, only: [:new_reservation]
   before_action :correct_admin, only: [:edit, :update, :ads, :announcement, :sales]
 
+  # accessible to students
+  def index
+    set_search
+    # filter out past events
+    @current_events = @events 
+    @current_events.each do |event|
+      @current_events.delete(event) if event.start < Time.now
+    end
+    @events = @current_events
+  end
+
+  def show
+    @event = Event.find(params[:id])
+    @post = @event.posts.build(event_id: @event.id)
+    @posts = @event.posts.take(@event.posts.size-1) # must slice off the anonymous new post
+    @tickets_remaining = tickets_remaining
+  end
+
+  def new_reservation # STUDENTS ONLY
+    @event = Event.find(params[:id])
+    @ticket_reservation = current_user.ticket_reservations.build(event_id: @event.id)
+    # must slice off the anonymous reservation
+    @ticket_reservations = @event.ticket_reservations.take(@event.ticket_reservations.size-1)
+    @tickets_remaining = tickets_remaining
+    render 'show_new_reservation'
+  end
+
+  # accessible to club admins
   def new
   	@event = Event.new
   end
 
   def create
   	@event = Event.new(event_params)
-  	@event.club_id = current_user.club.id # i would prefer to use build
+  	@event.club_id = current_user.club.id 
   	if @event.save
-  	  current_user.club.add_event(@event) # necessary? definitely stupid...
+  	  current_user.club.add_event(@event)
   	  flash[:success] = "Event created."
       redirect_to @event
   	else
   		render 'new'
   	end
+    rescue ArgumentError
+      flash[:error] = "Error. Please start over."
+      @event = Event.new
+      render 'new' 
   end
 
-  def show
-  	@event = Event.find(params[:id])
-    @post = @event.posts.build(event_id: @event.id)
-    @posts = @event.posts.take(@event.posts.size-1) # must slice off the anonymous new post
-    @tickets_remaining = tickets_remaining
-  end
-
-  def new_reservation
-    @event = Event.find(params[:id])
-    @ticket_reservation = current_user.ticket_reservations.build(event_id: @event.id)
-    render 'show_new_reservation'
-  end
-
+  # admin toolbox 
   def ads
     @event = Event.find(params[:id])
     render 'show_ads'
@@ -64,14 +86,10 @@ class EventsController < ApplicationController
     end
   end
 
-  def index
-    @events = Event.all
-  end
-
-  def delete
-  end
-
   def destroy
+    Event.find(params[:id]).destroy
+    flash[:success] = "Event deleted."
+    redirect_to events_admin_path ({id: current_user.id})
   end
 
   private
@@ -80,7 +98,7 @@ class EventsController < ApplicationController
       params.require(:event).permit(:name, :start, :end,
       	:location, :description, :ticket_price, :initial_tickets_avail, 
         :ticket_purchase_instructions, :sales_start, :sales_end, :conditions, 
-        :website_URL)
+        :website_URL, :banner)
     end
 
     def tickets_purchased?
@@ -112,8 +130,12 @@ class EventsController < ApplicationController
 
     def not_already_attending
       @event = Event.find(params[:id])
-      redirect_to root_url, notice: "You are already attending that event." if @event.students.exists?(id: current_user.id)
+      redirect_to event_path, notice: "You are already attending the event." if @event.students.exists?(id: current_user.id)
     end
 
+    def not_in_past
+      @event = Event.find(params[:id])
+      redirect_to event_path, notice: "That event already occurred." if @event.start < Time.now
+    end
 
 end

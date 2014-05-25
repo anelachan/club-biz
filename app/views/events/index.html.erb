@@ -2,9 +2,11 @@
 <h1>Browse events</h1>
 
 <div class = "span6 offset3">
+	<%= render 'search_form' %>
 	<ol class="clubs">
 	  <% @events.each do |event| %>
 	    <li>
+	      <%= link_to (image_tag(event.banner.url, size: '100x100')), event %>
 	      <%= l event.start %>
 	      &nbsp;&nbsp;
 		  <%= link_to event.name, event %>

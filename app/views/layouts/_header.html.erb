@@ -4,36 +4,16 @@
       <%= link_to "club-biz", root_path, id: "logo" %>
       <nav>
         <% if signed_in? and student? %>
-          <ul class="nav pull-left">
-            <li><%= link_to "Browse Events", events_path %></li>
-            <li><%= link_to "Browse Clubs", clubs_path %></li>
-          </ul>
-
-          <ul class="nav pull-right">
-            <li><%= link_to "My Events", events_student_path(current_user) %></li>
-            <li><%= link_to "My Clubs", clubs_student_path(current_user) %></li>
-            <li><%= link_to "Messages", messages_student_path(current_user) %></li>
-            <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
-          </ul>
-
-
+          <%= render 'layouts/student_header' %>
 
         <% elsif signed_in? and admin? %>
-          <ul class="nav pull-left">
-            <li><%= link_to "Create Event", new_event_path %></li>
-            <li><%= link_to "Events", events_admin_path(current_user) %></li>
-            <li><%= link_to "Edit Club Profile", edit_club_path(current_user.club) %></li>
-          </ul>
-
-          <ul class="nav pull-right">
-            <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
-          </ul>
+          <%= render 'layouts/admin_header' %>
 
         <% elsif signed_in? and root? %>
           <ul class="nav pull-right">
             <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
           </ul>
-
+          
         <% end %>
       </nav>
     </div>

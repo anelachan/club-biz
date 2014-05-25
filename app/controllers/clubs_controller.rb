@@ -1,14 +1,21 @@
 class ClubsController < ApplicationController
-before_action :has_admin_acct, only: [:new]
-before_action :signed_in_user, only: [:edit, :update]
-before_action :correct_user, only: [:edit, :update]
+  include ClubsHelper
+  before_action :has_admin_acct, only: [:new]
+  before_action :signed_in_user, only: [:edit, :update, :index, :show]
+  before_action :correct_user, only: [:edit, :update]
+
+  # accessible to any student users
+  def index
+    @clubs = Club.all
+    set_search
+  end
 
   def show
   	@club = Club.find(params[:id])
     @events = @club.events
   end
 
-  def new
+  def new # those who have completed verification and admin acct process only
     @admin = Admin.find_by(remember_token: params[:remember_token])
     @club = @admin.build_club(admin_id: @admin.id)
   end
@@ -25,7 +32,8 @@ before_action :correct_user, only: [:edit, :update]
   	end
   end
 
-  def edit
+  # edit and update accessible to admin user
+  def edit 
     @current_user = current_user 
   end
 
@@ -35,18 +43,26 @@ before_action :correct_user, only: [:edit, :update]
   		flash[:success] = "Club profile updated"
   		redirect_to @club
   	else
-  		render edit
+  		render 'edit'
   	end
   end
 
-  def index
-    @clubs = Club.all
+  # this method also used to match events by clubs
+  def match_clubs( string )
+    ret_event = [];
+        
+    Club.all.each do |club|
+      if( club.match_substring?( string ) )
+        ret_event << club;
+      end
+    end 
+    return ret_event;
   end
 
   private
 
     def club_params
-      params.require(:club).permit(:name, :description, :website_url)
+      params.require(:club).permit(:name, :description, :website_url, :logo)
     end
 
     def has_admin_acct
@@ -62,6 +78,5 @@ before_action :correct_user, only: [:edit, :update]
       @admin = Admin.find_by(id: @club.admin_id) # the correct admin of this club
       redirect_to(root_url) unless current_user?(@admin)
     end
-
 
 end

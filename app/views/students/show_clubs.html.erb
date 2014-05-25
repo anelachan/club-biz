@@ -7,7 +7,7 @@
     <ol class="clubs">
       <% @clubs.each do |club| %>
         <li>
-          <%= gravatar_for club.admin %>
+          <%= link_to (image_tag(club.logo.url, size: '100x100')), club %>
           <%= link_to club.name, club %>
         </li>
       <% end %>

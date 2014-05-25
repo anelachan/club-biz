@@ -1,8 +1,11 @@
+<!-- ONLY ACCESSIBLE TO SUPERUSERS -->
+
 <% provide(:title, 'Add a registered club') %>
 <h1>Add a registered club to the database</h1>
 
 <div class="row">
   <div class="span6 offset3">
+    <p><em>All fields required!</em></p>
     <%= form_for(@registered_club) do |f| %>
       <%= render 'shared/error_messages', object: @registered_club %>
 

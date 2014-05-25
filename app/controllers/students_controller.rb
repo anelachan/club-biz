@@ -1,6 +1,6 @@
 class StudentsController < UsersController
-  before_action :clubs, only: [:signed_in_user, :correct_user]
-  before_action :events, only: [:signed_in_user, :correct_user]
+  before_action :signed_in_user, only: [:clubs, :events, :messages]
+  before_action :correct_user, only: [:clubs, :events, :messages]
 
   def new
     @student = Student.new
@@ -11,12 +11,14 @@ class StudentsController < UsersController
     if @student.save
       flash[:success] = "Welcome to Club-Biz!"
       sign_in (@student)
-      redirect_to root_url
+      redirect_to events_student_path ({id: @student.id})
     else
       render 'new'
     end
   end
-   
+  
+  # nav-bar student menu options
+
   def clubs
    	@title = "My Clubs"
     @student = Student.find(params[:id])
@@ -27,7 +29,11 @@ class StudentsController < UsersController
   def events
     @title = "My Events"
     @student = Student.find(params[:id])
-    @events = @student.events
+    @current_events = Array.new(@student.events) # safe copy
+    @current_events.each do |event|
+      @current_events.delete(event) if event.start < Time.now
+    end
+    @events = @current_events
     render 'show_events'
   end
 
@@ -38,8 +44,6 @@ class StudentsController < UsersController
     render 'show_messages'
   end
 
-  def show
-  end
 
   private
 

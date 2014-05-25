@@ -1,3 +1,6 @@
+# stores information including session token for users of Club-Biz
+# three subclasses: Student, Admin, SuperUser
+
 class User < ActiveRecord::Base
   has_many :posts, through: :events
   
@@ -18,10 +21,6 @@ class User < ActiveRecord::Base
 
   def User.digest(token)
     Digest::SHA1.hexdigest(token.to_s)
-  end
-
-  def add_post(p) # DELETE?
-    @post = Post.find(p)
   end
 
   private

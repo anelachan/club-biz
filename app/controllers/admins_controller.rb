@@ -12,21 +12,23 @@ class AdminsController < ApplicationController
     if @admin.save
       flash[:success] = "Welcome to Club-Biz!"
       redirect_to details_admin_path ({id: @admin.id, remember_token: @admin.remember_token})
+      # pass a remember_token for crude security purposes
     else
       render 'new'
     end
   end
 
-  def details
+  def details # allows us to create admin details component
     @admin = Admin.find_by(remember_token: params[:remember_token])
     @admin_detail = @admin.build_admin_detail
     render 'show_details'
   end
 
-  def events
+  def events # the admin's club's events to manage
     @title = "Upcoming Events"
     @admin = Admin.find(params[:id])
-    @events = @admin.club.events
+    # filter out past events
+    @events = Event.where('start > :now AND club_id = :club', now: Time.now, club: @admin.club)
     render 'show_events'
   end
 
@@ -46,7 +48,7 @@ class AdminsController < ApplicationController
     end
 
     def correct_user
-      @admin = Admin.find(params[:id])
+      @admin = Admin.find_by(id:params[:id])
       redirect_to(root_url) unless current_user?(@admin)
     end
     

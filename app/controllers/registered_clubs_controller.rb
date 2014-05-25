@@ -1,5 +1,5 @@
 class RegisteredClubsController < ApplicationController
-  before_action :signed_in_root, only: [:new, :create]
+  before_action :signed_in_root, only: [:new, :create, :officers]
 
   def new
   	@registered_club = RegisteredClub.new
@@ -25,7 +25,8 @@ class RegisteredClubsController < ApplicationController
   	end
 
     def signed_in_root
-      redirect_to root_url, notice: "Access denied. Signed-in root users only." unless signed_in? and root?
+      redirect_to root_url, notice: "Access denied. Signed-in super-users 
+      only." unless signed_in? and root?
     end
 
 end

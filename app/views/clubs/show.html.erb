@@ -3,7 +3,7 @@
   <div class="row">
     <section>
       <h1>
-        <%= gravatar_for @club.admin %>
+        <%= image_tag @club.logo.url, size: '100x100' %>
         <%= @club.name %>
       </h1>
     </section>

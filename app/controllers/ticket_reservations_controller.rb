@@ -1,17 +1,18 @@
 class TicketReservationsController < ApplicationController
-  before_action :signed_in_user
 
-  def create
+  def create # accessible through event/show_new_reservation
   	@event = Event.find(params[:ticket_reservation][:event_id])
   	@ticket_reservation = current_user.ticket_reservations.build(reservation_params)
-  	if tickets_remaining? and @ticket_reservation.save
+    @tickets_remaining = tickets_remaining
+  	if enough_tickets? and @ticket_reservation.save 
+      send_message # send ticket confirmation
   	  flash[:success] = "Reservation completed."
-  	  send_message
-  	  redirect_to @event
+      redirect_to @event
   	else
-  	  flash[:error] = "Reservation failed."
-  	  render 'event/new_reservation'
+  	  flash[:error] = "Reservation failed. Check number of tickets."
+      redirect_to new_reservation_event_path (@event)
   	end
+    
   end
 
   private
@@ -28,14 +29,26 @@ class TicketReservationsController < ApplicationController
    	end
 
    	def send_message
-   	  @message = Message.new(content: confirmation_content) # change to build?
+   	  @message = Message.new(content: confirmation_content)
       @message.club_id = @event.club_id
       @message.student_id = current_user.id
       @message.save
     end
 
-    def tickets_remaining?
-      @event.initial_tickets_avail > TicketReservation.sum(:num_tickets)
+    def enough_tickets?
+      tickets_remaining.to_i > params[:ticket_reservation][:num_tickets].to_i
+    end
+
+    def tickets_remaining
+      if tickets_purchased?
+        @event.initial_tickets_avail - @event.ticket_reservations.sum(:num_tickets)
+      else
+        @event.initial_tickets_avail
+      end
+    end
+
+    def tickets_purchased?
+      !@event.ticket_reservations.empty?
     end
 
 end

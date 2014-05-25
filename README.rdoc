@@ -1,28 +1,25 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+To get the application up and running, the following is required:
 
-Things you may want to cover:
+- Install all necessary gems.
 
-* Ruby version
+$ bundle update
+$ bundle install 
 
-* System dependencies
+- Load the database according to the definitive schema file (do not run the migrations).
+$ rake db:schema:load
 
-* Configuration
+- ACTUALLY ADDING CLUBS: Adding any registered clubs to the Club-Biz list (and no club account can be created without being checked against the list of registered clubs in the database) requires a SuperUser account. This can be created on the command-line.
 
-* Database creation
+The SuperUser needs the following information: 
+last_name (string)
+first_name (string
+password (string)
+password_confirmation (string)
 
-* Database initialization
+In the rails console:
+> me = SuperUser.new(last_name: "your last name here", first_name: "your first name here", password: "password here", password_confirmation: "password here").
+> me.save
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+This will create a SuperUser account for you and you can now log in to add clubs to the official Registered Clubs database. This is purely to mimic the existence of a societies administration user.

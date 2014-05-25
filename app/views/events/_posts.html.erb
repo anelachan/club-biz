@@ -1,20 +1,24 @@
 <% if student? %>
   <div class = "span8 offset2">
 <% end %>
-            
-  <% @posts.each do |post| %>
-    <ul class = "generic-list">
 
-    	<% if post.user.type == 'Student' %>
-	      <li><b><%= post.user.first_name + ' ' + post.user.last_name%></b></li>
-	    <% elsif post.user.type == 'Admin' %>
-	      <li><b><%= post.user.club.name %></b></li>
-	    <% end %>
+  <% if @posts.any? %>        
+    <% @posts.each do |post| %>
+      <ul class = "generic-list">
 
-	      <li><%= post.content %></li>
-	      <li><small><em><%= l post.created_at %></em></small></li>
-    </ul>
+      	<% if post.user.type == 'Student' %>
+  	      <li><b><%= post.user.first_name + ' ' + post.user.last_name%></b></li>
+  	    <% elsif post.user.type == 'Admin' %>
+  	      <li><b><%= post.user.club.name %></b></li>
+  	    <% end %>
+  	      <li><%= post.content %></li>
+  	      <li><small><em><%= l post.created_at %></em></small></li>
+      </ul>
+    <% end %>
+  <% else %>
+    No posts yet.
   <% end %>
+
 
 <% if student? %>
   </div>
