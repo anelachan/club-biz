@@ -22,6 +22,7 @@
   	    <ul class="clubs">
   	      <% @events.each do |event| %>
   			    <li>
+              <%= l event.start %>
               <%= link_to event.name, event %>
             </li>
   	  		<% end %>
