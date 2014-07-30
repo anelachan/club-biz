@@ -24,10 +24,6 @@ class Club < ActiveRecord::Base
   	@event = Event.find(e)
   end
 
-  def match_substring?(string)
-    self.name.downcase.include? string.downcase
-  end
-
   def add_group(g)
     club_groups.create!(group_id: g.id)
   end

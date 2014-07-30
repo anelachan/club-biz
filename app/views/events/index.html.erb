@@ -1,8 +1,18 @@
 <% provide(:title, 'Browse events') %>
 <h1>Browse events</h1>
 
+<!--search bar -->
+<div class = "span5 offset3">
+	<%= form_tag events_path, method: 'get' do %>
+	    <%= text_field_tag :search, params[:search] %>
+</div>
+<div class = "span1 offset 3">
+	    <%= submit_tag "Search", name: nil %>
+	<% end %>
+</div>
+
+<!--event list -->
 <div class = "span6 offset3">
-	<%= render 'search_form' %>
 	<ol class="clubs">
 	  <% @events.each do |event| %>
 	    <li>

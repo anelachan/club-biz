@@ -33,10 +33,6 @@ class Event < ActiveRecord::Base
 
   default_scope -> {order('start ASC')}
 
-  def match_substring?( string )
-    self.name.downcase.include? string.downcase
-  end 
-
   # THE FOLLOWING ARE ALL DATETIME VALIDATIONS #
   def start_has_time
     errors.add(:start, " must have a time. Time cannot be midnight.") unless \

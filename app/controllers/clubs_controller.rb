@@ -1,13 +1,15 @@
 class ClubsController < ApplicationController
-  include ClubsHelper
   before_action :has_admin_acct, only: [:new]
   before_action :signed_in_user, only: [:edit, :update, :index, :show]
   before_action :correct_user, only: [:edit, :update]
 
   # accessible to any student users
   def index
-    @clubs = Club.all
-    set_search
+    if params[:search] and params[:search] != ''
+      @clubs = Club.where('name LIKE ?', '%' + params[:search] + '%')
+    else
+      @clubs = Club.all
+    end
   end
 
   def show
@@ -45,18 +47,6 @@ class ClubsController < ApplicationController
   	else
   		render 'edit'
   	end
-  end
-
-  # this method also used to match events by clubs
-  def match_clubs( string )
-    ret_event = [];
-        
-    Club.all.each do |club|
-      if( club.match_substring?( string ) )
-        ret_event << club;
-      end
-    end 
-    return ret_event;
   end
 
   private

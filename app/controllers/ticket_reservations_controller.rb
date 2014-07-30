@@ -36,7 +36,7 @@ class TicketReservationsController < ApplicationController
     end
 
     def enough_tickets?
-      tickets_remaining.to_i > params[:ticket_reservation][:num_tickets].to_i
+      tickets_remaining.to_i >= params[:ticket_reservation][:num_tickets].to_i
     end
 
     def tickets_remaining

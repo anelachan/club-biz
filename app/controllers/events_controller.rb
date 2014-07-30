@@ -1,5 +1,4 @@
 class EventsController < ApplicationController
-  include EventsHelper
   before_action :signed_in_user
   before_action :student_user, only: [:new_reservation]
   before_action :not_in_past, only: [:new_reservation]
@@ -8,13 +7,12 @@ class EventsController < ApplicationController
 
   # accessible to students
   def index
-    set_search
     # must filter out past events
-    @current_events = Array.new(@events) # safe copy
-    @current_events.each do |event| 
-      @current_events.delete(event) if event.start < Time.now
+    if params[:search] and params[:search] != ''
+      @events = Event.where('start > ? AND name LIKE ?', Time.now, '%' + params[:search] + '%')
+    else
+      @events = Event.where('start > :now', now: Time.now)
     end
-    @events = @current_events # feed view only current events
   end
 
   def show

@@ -1,3 +1,4 @@
+# NOT USING THIS ANYMORE
 module EventsHelper
 
  #find events based on club's name. This method can be private.

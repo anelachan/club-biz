@@ -1,5 +1,0 @@
-<%= form_for(current_user.ticket_reservations.build(event_id: @event.id),
-             remote: true) do |f| %>
-  <div><%= f.hidden_field :event_id %></div>
-  <%= f.submit "Join Event", class: "btn btn-large btn-primary" %>
-<% end %>

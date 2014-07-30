@@ -1,3 +1,4 @@
+# NOT USING THIS ANYMORE
 module ClubsHelper
 
 def set_search
