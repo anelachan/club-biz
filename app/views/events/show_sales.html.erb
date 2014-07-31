@@ -1,7 +1,7 @@
 <% provide(:title, @title) %>
 <div class="span8">
   <h3>Sales Report</h3>
-  Total Sales = $<%= @total_sales %>
+  Total Sales = <%= number_to_currency(@total_sales) %>
   <% if @reservations.any? %>
       <table class = "table">
         <thead>

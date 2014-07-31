@@ -9,14 +9,16 @@ class Club < ActiveRecord::Base
   has_many :events, dependent: :destroy
   has_many :messages, dependent: :destroy
 
-  has_attached_file :logo, :default_url => "/images/:style/missing.png"
-  validates_attachment_content_type :logo, :content_type => /\Aimage\/.*\Z/
+  has_attached_file :logo, styles: {thumb: "100x100#"}, default_url: "/images/:style/missing.png"
+  validates_attachment :logo, presence: true, 
+    content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }, 
+    size: {in: 0..500.kilobytes}
 
   validates :name,  presence: true, length: { maximum: 100 }, uniqueness: { case_sensitive: false }
   validates :description,  presence: true, length: { maximum: 500 }
   VALID_URL_REGEX = /^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,6}(:[0-9]{1,5})?(\/.*‌​)?$/ix
   validates :website_url, format: { with: VALID_URL_REGEX, multiline: true, allow_blank: true}
-  validates :logo, presence: true
+  
   
   default_scope -> {order('name ASC')}
 

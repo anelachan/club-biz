@@ -3,7 +3,7 @@
   <div class="row">
     <section>
       <h1>
-        <%= image_tag @club.logo.url, size: '100x100' %>
+        <%= image_tag @club.logo.url(:thumb) %>
         <%= @club.name %>
       </h1>
     </section>

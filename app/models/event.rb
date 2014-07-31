@@ -10,8 +10,10 @@ class Event < ActiveRecord::Base
   has_many :ads, foreign_key: "event_id", dependent: :destroy
   has_many :announcements, foreign_key: "event_id", dependent: :destroy
 
-  has_attached_file :banner, :default_url => "/images/:style/missing.png"
-  validates_attachment_content_type :banner, :content_type => /\Aimage\/.*\Z/
+  has_attached_file :banner, styles: {thumb: "100x100#"}, default_url: "/images/:style/missing.png"
+  validates_attachment :banner, presence: true, 
+    content_type: { content_type: ["image/jpeg", "image/gif", "image/png"] }, 
+    size: {in: 0..1.megabytes}
 
   validates :name, presence:true
   validates :start, presence:true 
