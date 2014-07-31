@@ -25,9 +25,5 @@ class Student < User
   def join!(e, nt)
     ticket_reservations.create!(event_id: e.id, num_tickets: nt)
   end
-
-  def add_message!(m)
-    user_messages.create!(message_id: m.id)
-  end
   
 end

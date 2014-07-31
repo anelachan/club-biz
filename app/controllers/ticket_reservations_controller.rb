@@ -22,9 +22,9 @@ class TicketReservationsController < ApplicationController
 
    	def confirmation_content
    	  content = "This is a confirmation of your reservation for " + 
-   	  @event.name + ". Number of tickets purchased: " + @ticket_reservation.num_tickets.to_s +
-      ". It is your responsibility to pick up and purchase your tickets. 
-   	  Instructions are as follows: " +
+   	  @event.name + ". Number of tickets purchased: " + 
+      @ticket_reservation.num_tickets.to_s + ". It is your responsibility 
+      to pick up and purchase your tickets. Instructions are as follows: " +
    	  @event.ticket_purchase_instructions
    	end
 

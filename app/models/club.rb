@@ -1,6 +1,6 @@
 # stores details for a club profile
 # club cannot exist without an admin (for Club-Biz)
-# can be followed by clubs
+# can be followed by students
 
 class Club < ActiveRecord::Base
   belongs_to :admin, class_name: "Admin"

@@ -18,29 +18,21 @@ class StudentsController < UsersController
   end
   
   # nav-bar student menu options
-
   def clubs
    	@title = "My Clubs"
-    @student = Student.find(params[:id])
-   	@clubs = @student.clubs
+   	@clubs = Student.find(params[:id]).clubs
    	render 'show_clubs'
   end
 
   def events
     @title = "My Events"
-    @student = Student.find(params[:id])
-    @current_events = Array.new(@student.events) # safe copy
-    @current_events.each do |event|
-      @current_events.delete(event) if event.start < Time.now
-    end
-    @events = @current_events
+    @events = Student.find(params[:id]).events.select{|e| e.start > Time.now}
     render 'show_events'
   end
 
   def messages
     @title = 'Messages'
-    @student = Student.find(params[:id])
-    @messages = @student.messages
+    @messages = Student.find(params[:id]).messages
     render 'show_messages'
   end
 
