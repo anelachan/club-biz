@@ -7,7 +7,7 @@
 	    <%= text_field_tag :search, params[:search] %>
 </div>
 <div class = "span1 offset 3">
-	    <%= submit_tag "Search", name: nil %>
+	    <button type = "submit" class="btn">Search</button>
 	<% end %>
 </div>
 
@@ -18,7 +18,7 @@
 	  <% @clubs.each do |club| %>
 	    <li>
 	      <%= link_to image_tag(club.logo.url(:thumb)), club %>
-		  <%= link_to club.name, club %>
+	      <%= link_to club.name, club %>
 		</li>
 	  <% end %>
 	</ul>

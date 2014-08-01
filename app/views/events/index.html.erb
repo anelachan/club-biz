@@ -4,10 +4,10 @@
 <!--search bar -->
 <div class = "span5 offset3">
 	<%= form_tag events_path, method: 'get' do %>
-	    <%= text_field_tag :search, params[:search] %>
+	  <%= text_field_tag :search, params[:search] %>
 </div>
-<div class = "span1 offset 3">
-	    <%= submit_tag "Search", name: nil %>
+<div class = "span1">
+	  <button type = "submit" class="btn">Search</button>
 	<% end %>
 </div>
 
@@ -17,9 +17,9 @@
 	  <% @events.each do |event| %>
 	    <li>
 	      <%= link_to image_tag(event.banner.url(:thumb)), event %>
-	      <%= l event.start %>
+	      <%= event.start.strftime("%d %b %y %H:%M") %> 
 	      &nbsp;&nbsp;
-		  <%= link_to event.name, event %>
+	      <%= link_to event.name, event %>     
 		</li>
 	  <% end %>
 	</ol>

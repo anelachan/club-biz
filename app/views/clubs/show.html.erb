@@ -22,7 +22,7 @@
   	    <ul class="clubs">
   	      <% @events.each do |event| %>
   			    <li>
-              <%= l event.start %>
+              <%= event.start.strftime("%d %b %y %H:%M") %>
               <%= link_to event.name, event %>
             </li>
   	  		<% end %>

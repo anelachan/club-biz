@@ -1,4 +1,4 @@
 <%= form_for(current_user.student_clubs.find_by(club_id: @club.id),
              html: { method: :delete }) do |f| %>
-  <%= f.submit "Unfollow", class: "btn btn-large" %>
+  <%= f.submit "Unfollow", class: "btn btn-large btn-small" %>
 <% end %>

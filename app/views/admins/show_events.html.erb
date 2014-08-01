@@ -7,7 +7,7 @@
       <% @events.each do |event| %>
         <li>
           <%= link_to image_tag(event.banner.url(:thumb)), event %>
-          <%= l event.start %>
+          <%= event.start.strftime("%d %b %y %H:%M") %>
           &nbsp;&nbsp;
         <%= link_to event.name, event %>
       </li>

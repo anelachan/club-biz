@@ -1,11 +1,11 @@
 <% if student? %>
-  <div class = "span8 offset2">
+  <div class = "span6 offset3">
 <% end %>
 
-  <% if @posts.any? %>        
+  <% if @posts.any? %>
+    <p>       
     <% @posts.each do |post| %>
       <ul class = "generic-list">
-
       	<% if post.user.type == 'Student' %>
   	      <li><b><%= post.user.first_name + ' ' + post.user.last_name%></b></li>
   	    <% elsif post.user.type == 'Admin' %>

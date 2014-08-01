@@ -1,6 +1,6 @@
 <% provide(:title, @event.name) %>
 <div class="row">
-<div class = "span8 offset2">
+<div class = "span6 offset3">
   <% if admin? %>
     <%= render 'tools'%>
   <% end %>
@@ -17,34 +17,35 @@
         <p>
          <%= image_tag @event.banner.url %>
         </p>
-      </div>
-      <ul class="generic-list">
-        <li>
-          <b>Hosted by </b><%= @event.club.name %>
-        </li>
-        <li>
-          <b>Start </b><%= l @event.start %>
-          <b>End </b><%= l @event.end %>
-        </li>
-        <li>
-          <b>Location </b><%= @event.location %>
-        </li>
-        <li>
-          <b>Ticket price </b><%= number_to_currency(@event.ticket_price) %>
-          <b>Tickets remaining </b><%= @tickets_remaining %>
-        </li>
-      </ul>
+        <ul class="generic-list">
+          <li>
+            <b>Hosted by </b><%= @event.club.name %>
+          </li>
+          <li>
+            <b>Start: </b><%= @event.start.strftime("%d %b %y at %H:%M") %>
+            <b>End: </b><%= @event.end.strftime("%d %b %y at %H:%M") %>
+          </li>
+          <li>
+            <b>Location: </b><%= @event.location %>
+          </li>
+          <li>
+            <b>Ticket price: </b><%= number_to_currency(@event.ticket_price) %>
+            <b>Tickets remaining: </b><%= @tickets_remaining %>
+          </li>
+        </ul>
 
-      <!-- JOIN BUTTON, STUDENTS ONLY, FUTURE ONLY -->
-      <% if student? and !current_user.joined?(@event) and @event.start > Time.now %>
-        <br>
-        <%= link_to 'Join and reserve tickets', 
-        new_reservation_event_path, class: "btn btn-primary btn-sm" %>
-      <% elsif student? and @event.start > Time.now %>
-        <em> You are attending this event. </em>
-      <% elsif student? %> 
-        <em>This event has already happened.</em>
-      <% end %>
+
+        <!-- JOIN BUTTON, STUDENTS ONLY, FUTURE ONLY -->
+        <% if student? and !current_user.joined?(@event) and @event.start > Time.now %>
+          <br>
+          <%= link_to 'Join and reserve tickets', 
+          new_reservation_event_path, class: "btn btn-primary btn-sm" %>
+        <% elsif student? and @event.start > Time.now %>
+          <em> You are attending this event. </em>
+        <% elsif student? %> 
+          <em>This event has already happened.</em>
+        <% end %>
+
     </section>
 
     <section>
