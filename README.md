@@ -6,18 +6,18 @@ Club-Biz is a social application designed and built for a course in Software Mod
 
 To get the application up and running, the following is required:
 
-1. Install all necessary gems.
+* Install all necessary gems.
 ```
 $ bundle update
 $ bundle install 
 ```
 
-2. Load the database according to the definitive schema file (do not run all the migrations).
+* Load the database according to the definitive schema file (do not run all the migrations).
 ```
 $ rake db:schema:load
 ```
 
-3. ImageMagick must be installed on the server for image uploading to work through the PaperClip gem. On a UNIX system with homebrew: 
+* ImageMagick must be installed on the server for image uploading to work through the PaperClip gem. On a UNIX system with homebrew: 
 ```
 $ brew install imagemagick
 ```
@@ -25,14 +25,16 @@ $ brew install imagemagick
 ACTUALLY ADDING CLUBS: Adding any registered clubs to the Club-Biz list (and no club account can be created without being checked against the list of registered clubs in the database) requires a SuperUser account. This can be created on the command-line.
 
 The SuperUser needs the following information: 
-last_name (string)
-first_name (string
-password (string)
-password_confirmation (string)
+last_name (string), first_name (string), password (string), password_confirmation (string)
 
 In the rails console:
 ```
-> me = SuperUser.new(last_name: "your last name here", first_name: "your first name here", password: "password here", password_confirmation: "password here").
+> me = SuperUser.new( 
+	last_name: "your last name here", 
+	first_name: "your first name here", 
+	password: "password here", 
+	password_confirmation: "password here"
+   ).
 
 > me.save
 ```
